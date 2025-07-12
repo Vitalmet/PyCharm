@@ -5,7 +5,7 @@ requires-python = ">=3.12"
 [[package]]
 name = "hexlet-hello-world"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "more-itertools" },
 ]
