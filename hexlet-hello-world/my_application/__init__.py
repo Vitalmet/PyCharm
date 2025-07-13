@@ -1,4 +1,3 @@
-
 from my_application.module import greet
 
 __all__ = (
