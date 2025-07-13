@@ -1,4 +1,4 @@
-from my_application import  greet
+from my_application import greet
 
 greet()
 # => Welcome to my application!
