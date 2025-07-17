@@ -32,6 +32,7 @@ for i in range(1, 11):  # Цикл на 10 итераций
 
 print("\nФинальный нарастающий итог:", total)  # Выводим окончательный результат'''
 
+"""
 total = 0.0  # Инициализируем переменную для суммы
 
 for n in range(1, 31):  # n от 1 до 30
@@ -42,4 +43,24 @@ for n in range(1, 31):  # n от 1 до 30
     # Для наглядности выводим каждый шаг (можно убрать)
     print(f"{n}/{denominator} = {term:.4f}")
 
-print(f"\nСумма ряда: {total:.6f}")
+print(f"\nСумма ряда: {total:.6f}") """
+
+"""rows = 10
+cols = 15
+for r in range(rows):
+    for c in range(cols):
+        print("#", end="")
+    print()"""
+
+"""number = int(input("Введите положительное число: "))
+while number <= 0:
+    print("ERROR: число не может быть отрицательным или равно 0")
+    number = int(input("Введите положительное число: "))
+else:
+    print("OK")"""
+
+number = int(input("Введите число от 1 до 100: "))
+while number <= 0 or number > 100:
+    print("ERROR: число не входит в заданный диапазон")
+    number = int(input("Введите число от 1 до 100: "))
+    print("OK")
