@@ -59,8 +59,8 @@ while number <= 0:
 else:
     print("OK")"""
 
-number = int(input("Введите число от 1 до 100: "))
+'''number = int(input("Введите число от 1 до 100: "))
 while number <= 0 or number > 100:
     print("ERROR: число не входит в заданный диапазон")
     number = int(input("Введите число от 1 до 100: "))
-    print("OK")
+    print("OK")'''
