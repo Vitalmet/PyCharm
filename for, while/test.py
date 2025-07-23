@@ -64,3 +64,26 @@ while number <= 0 or number > 100:
     print("ERROR: число не входит в заданный диапазон")
     number = int(input("Введите число от 1 до 100: "))
     print("OK")'''
+
+
+# BEGIN (write your solution here)
+def is_prime(num):
+    """Чистая функция для проверки простого числа."""
+    if num == 2:
+        return True
+    if num < 2 or num % 2 == 0:
+        return False
+    square_root = int(num ** 0.5) + 1
+    for n in range(3, square_root, 2):
+        if num % n == 0:
+            return False
+    return True
+
+
+def say_prime_or_not():
+    """Функция с побочным эффектом для вывода результата."""
+    num = int(input("Введите число для проверки: "))
+    if is_prime(num):
+        print("yes")
+    else:
+        print("no")
