@@ -84,3 +84,10 @@ for d in range(1, time + 1):
     print(f'{d}\t{distance:.2f}')
 """
 
+def greatest_common_divisor(num1, num2):
+    while num2 != 0:
+        remainder = num1 % num2  # Сохраняем остаток
+        num1 = num2              # Обновляем num1
+        num2 = remainder         # Обновляем num2
+    return num1
+
