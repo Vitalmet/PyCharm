@@ -84,10 +84,29 @@ for d in range(1, time + 1):
     print(f'{d}\t{distance:.2f}')
 """
 
-def greatest_common_divisor(num1, num2):
+"""def greatest_common_divisor(num1, num2):
     while num2 != 0:
         remainder = num1 % num2  # Сохраняем остаток
         num1 = num2              # Обновляем num1
         num2 = remainder         # Обновляем num2
     return num1
+"""
+
+"""def func(a, b, *args, f="bar", k=42, **kwargs):
+    # параметр 'a' содержит первый аргумент
+    print(f"a -> {a}")
+    # параметр 'b' содержит второй аргумент
+    print(f"b -> {b}")
+    # args содержит все остальные позиционные аргументы
+    print(f"args -> {args}")
+    # f содержит именованный аргумент и равен bar по умолчанию
+    print(f"f -> {f}")
+    # k содержит именованный аргумент и равен 42 по умолчанию
+    print(f"k -> {k}")
+    # kwargs содержит все остальные именованные аргументы
+    print(f"kwargs -> {kwargs}")
+
+
+func(1, 2, 3, 4, 5, f="hello", k=24, l=[1, 2], ll={"key": "value"})
+"""
 
