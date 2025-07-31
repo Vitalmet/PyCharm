@@ -138,5 +138,3 @@ total_salary = days_worked * daily_salary
 print("\n----------------\t------------------")
 print(f"ЗП в рублях за весь период составляет: {total_salary:.2f}")"""
 
-
-
