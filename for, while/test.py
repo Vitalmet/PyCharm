@@ -138,3 +138,18 @@ total_salary = days_worked * daily_salary
 print("\n----------------\t------------------")
 print(f"ЗП в рублях за весь период составляет: {total_salary:.2f}")"""
 
+"""# Генератор
+def gen_squares():
+    i = 1
+    # бесконечный цикл
+    while True:
+        yield i**2
+        i += 1
+
+
+result = []
+for num in gen_squares():
+    result.append(num)
+    if num > 1000:
+        break
+print(result)"""
