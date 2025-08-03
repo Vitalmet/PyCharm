@@ -153,3 +153,22 @@ for num in gen_squares():
     if num > 1000:
         break
 print(result)"""
+
+def get_fibonacci(num):
+if num == 0:
+    return 0
+
+if num == 1:
+    return 1
+
+first, second = 0, 1
+result = first + second
+
+index = 2
+while index <= num:
+    result = first + second
+    first, second = second, result
+
+    index += 1
+
+return result
