@@ -154,6 +154,7 @@ for num in gen_squares():
         break
 print(result)"""
 
+"""#  числа фибоначи
 def get_fibonacci(num):
 if num == 0:
     return 0
@@ -171,4 +172,60 @@ while index <= num:
 
     index += 1
 
-return result
+return result"""
+
+"""def my_filter(callback, collection):
+    for item in collection:
+        if callback(item):
+            yield item
+
+users = [
+    {"name": "Igor", "age": 19},
+    {"name": "Danil", "age": 1},
+    {"name": "Vovan", "age": 4},
+    {"name": "Matvey", "age": 16},
+]
+
+filtered_users = my_filter(lambda user: user["age"] > 10, users)
+print(list(filtered_users))"""
+
+"""N = int(input("Число: "))
+max = -1001
+for i in range(N):
+    number = int(input())
+    if max < number:
+        max = number
+
+print(max)"""
+
+"""N = int(input("number: "))
+min = int(input())
+for i in range(N - 1):
+    number = int(input())
+    if min > number:
+        min = number
+print(min)"""
+
+"""# Сумма чисел
+summa = 0.0
+print("Введите положительные числа(для завершения введите отрицательное число):")
+while True:
+    numbers = int(input("Число: "))
+    if numbers < 0:
+        break
+    summa += numbers
+print(f"Сумма введенных положительных чисел: {summa}")"""
+
+
+users = [
+    {"name": "Igor", "amount": 19},
+    {"name": "Danil", "amount": 1},
+    {"name": "Ivan", "amount": 4},
+    {"name": "Matvey", "amount": 16},
+]
+
+sum = 0
+for user in users:
+    sum += user["amount"]
+
+print(sum)
