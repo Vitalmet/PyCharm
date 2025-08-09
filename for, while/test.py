@@ -228,3 +228,4 @@ filtered_users = filter(lambda user: user["age"] > 10, users)
 names = map(lambda user: user["name"], filtered_users)
 print(list(names))"""
 
+print("hello, world!")
