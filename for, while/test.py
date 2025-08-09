@@ -217,15 +217,14 @@ while True:
 print(f"Сумма введенных положительных чисел: {summa}")"""
 
 
-users = [
-    {"name": "Igor", "amount": 19},
-    {"name": "Danil", "amount": 1},
-    {"name": "Ivan", "amount": 4},
-    {"name": "Matvey", "amount": 16},
+"""users = [
+    {"name": "Igor", "age": 19},
+    {"name": "Danil", "age": 1},
+    {"name": "Vovan", "age": 4},
+    {"name": "Matvey", "age": 16},
 ]
 
-sum = 0
-for user in users:
-    sum += user["amount"]
+filtered_users = filter(lambda user: user["age"] > 10, users)
+names = map(lambda user: user["name"], filtered_users)
+print(list(names))"""
 
-print(sum)
