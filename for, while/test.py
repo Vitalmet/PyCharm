@@ -228,4 +228,14 @@ filtered_users = filter(lambda user: user["age"] > 10, users)
 names = map(lambda user: user["name"], filtered_users)
 print(list(names))"""
 
-print("hello, world!")
+def factorial(n):
+    if n == 0:
+        return 1
+
+    else:
+        return n * factorial(n - 1)
+
+
+answer = factorial(3)
+
+print(answer)
