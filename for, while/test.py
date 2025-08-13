@@ -228,7 +228,8 @@ filtered_users = filter(lambda user: user["age"] > 10, users)
 names = map(lambda user: user["name"], filtered_users)
 print(list(names))"""
 
-def factorial(n):
+#Факториал, рекурсия
+"""def factorial(n):
     if n == 0:
         return 1
 
@@ -238,4 +239,6 @@ def factorial(n):
 
 answer = factorial(3)
 
-print(answer)
+print(answer)"""
+
+
