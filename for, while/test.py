@@ -241,4 +241,29 @@ answer = factorial(3)
 
 print(answer)"""
 
+"""semester = 145000 #оплата за семкстр
+increase = 0.03    #повышение платы в % за 1 год
+years = 5         #длится оучение
+print("Плановая сумма за обучение на следующие 5 лет:")
+print("Год\tСумма руб.")
+
+total_sum = semester * 2
+
+for year in range(1, years + 1):
+    print(f"{year}\t{total_sum:,.2f}".replace(",", " "))
+    total_sum *= (1 + increase)"""
+
+
+"""mass = int(input("Введите ваш вес в кг: "))
+month = 6 #количество месяцев диеты
+kg_per_month = 1.5
+
+print("Ожидаемая масса составляет:")
+print("месяц\tвес.")
+
+expected_mass = mass
+for m in range(1, month + 1):
+    expected_mass -= kg_per_month
+    print(f"{m}\t{expected_mass:,.2f}")"""
+
 
