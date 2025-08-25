@@ -266,4 +266,15 @@ for m in range(1, month + 1):
     expected_mass -= kg_per_month
     print(f"{m}\t{expected_mass:,.2f}")"""
 
+"""# Вычисление факториала числа
+
+num = int(input("Введите целое не отрицательное число: "))
+
+
+for i in range(1, num):
+    num *= i
+    print(f"Шаг {i}: {num}")
+
+print(f"Факториал  = {num}")
+"""
 
