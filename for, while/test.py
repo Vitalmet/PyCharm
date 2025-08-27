@@ -278,3 +278,4 @@ for i in range(1, num):
 print(f"Факториал  = {num}")
 """
 
+print("hello world")
