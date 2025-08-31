@@ -1,4 +1,4 @@
-# Эта программа имеет две функции
+"""# Эта программа имеет две функции
 # Сначала определяем главную функцию
 
 def main():
@@ -14,3 +14,13 @@ def message():
 
 # Вызвать главную функцию
 main()
+"""
+
+def get_count(sentence):
+    count = 0
+    for char in sentence:
+        if char.lower() == 'aeiou':
+            count += 1
+    return count
+
+get_count('aeiou')
