@@ -16,7 +16,7 @@ def message():
 main()
 """
 
-def get_count(sentence):
+"""def get_count(sentence):
     count = 0
     for char in sentence:
         if char.lower() == 'aeiou':
@@ -24,3 +24,4 @@ def get_count(sentence):
     return count
 
 get_count('aeiou')
+"""
