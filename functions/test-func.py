@@ -25,4 +25,28 @@ main()
 
 get_count('aeiou')
 """
-# Предположим, объект - словарь
+"""                                                    
+# Сортировка по выбору
+line = [int(elem) for elem in input().split(" ")]
+
+for j in range(len(line)):
+    for i in range(j, len(line)):
+        if line[i] < line[j]:
+            t = line[j]
+            line[j] = line[i]
+            line[i] = t
+print(line)
+"""
+
+line = input()
+lst = [int(elem) for elem in line.split()]
+N = lst[0]
+M = lst[1]
+
+arr = []
+for i in range(N):
+    line = input()
+    lst = [int(elem) for elem in line.split()]
+    arr.append(lst)
+
+print(arr)
