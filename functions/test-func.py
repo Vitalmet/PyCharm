@@ -38,7 +38,7 @@ for j in range(len(line)):
 print(line)
 """
 
-line = input()
+"""line = input()
 lst = [int(elem) for elem in line.split()]
 N = lst[0]
 M = lst[1]
@@ -50,3 +50,4 @@ for i in range(N):
     arr.append(lst)
 
 print(arr)
+"""
