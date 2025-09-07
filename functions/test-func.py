@@ -61,7 +61,7 @@ answer = factorial(int(input()))
 print(answer)
 """
 
-def flatten(nested_list):
+"""def flatten(nested_list):
     flat_list = []
 
     for item in nested_list:
@@ -74,3 +74,13 @@ def flatten(nested_list):
 
 nested = [1, [2, [3, 4], 5], [6, 7], [1, 2, 3, 4, [5], [], 10 ]]
 print(flatten(nested))
+"""
+
+def factorial(n):
+    if n == 1:
+        return 1
+    else:
+        return n * factorial(n)
+
+result = factorial(12)
+print(result)
