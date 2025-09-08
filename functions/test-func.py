@@ -76,11 +76,26 @@ nested = [1, [2, [3, 4], 5], [6, 7], [1, 2, 3, 4, [5], [], 10 ]]
 print(flatten(nested))
 """
 
-def factorial(n):
+"""def factorial(n): #рекурсивный процесс
     if n == 1:
         return 1
     else:
         return n * factorial(n)
 
 result = factorial(12)
+print(result)
+"""
+
+def factorial(n):
+    if n == 0:
+        return 1
+
+
+    def inner(counter, acc):
+        if counter == 1:
+            return acc
+        return inner(counter - 1, acc * counter)
+
+    return inner(n, 1)
+result = factorial(25)
 print(result)
