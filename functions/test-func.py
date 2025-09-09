@@ -86,7 +86,7 @@ result = factorial(12)
 print(result)
 """
 
-def factorial(n):
+"""def factorial(n): #итеативный процесс
     if n == 0:
         return 1
 
@@ -99,3 +99,4 @@ def factorial(n):
     return inner(n, 1)
 result = factorial(25)
 print(result)
+"""
