@@ -100,3 +100,5 @@ print(result)
 result = factorial(25)
 print(result)
 """
+tree = ((1, 4), 2, (3, 8))
+print(tree)
