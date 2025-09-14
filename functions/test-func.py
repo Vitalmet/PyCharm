@@ -100,3 +100,7 @@ print(result)
 result = factorial(25)
 print(result)
 """
+num = int(input())
+string = str(num)
+num_str = string[1] + string[0] + string[3] + string[2]
+print(num_str)
