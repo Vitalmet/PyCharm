@@ -100,4 +100,3 @@ print(result)
 result = factorial(25)
 print(result)
 """
-print("hello world")
