@@ -100,7 +100,17 @@ print(result)
 result = factorial(25)
 print(result)
 """
-num = int(input())
-string = str(num)
-num_str = string[1] + string[0] + string[3] + string[2]
-print(num_str)
+items = [2, [3, [4, [5, [6]]], [7]]]
+
+def check(num):
+    if num % 2 == 0 and num > 4:
+        return num
+    return 1
+
+def aggregate(items):
+    if isinstance(items, int):
+        return check(items)
+    result = list(map(aggregate, items))
+    return sum(result)
+
+print(aggregate(items))
