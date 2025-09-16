@@ -42,7 +42,7 @@ def find_empty_dirs(tree):
     # Далее flatten делает список плоским
     return fs.flatten(empty_dir_names)
 
-def walk(node, depth):
+def walk(node, depth):# depth - переменная аккумуулятор
     name = fs.get_name(node)
     children = fs.get_children(node)
     # Если потомков нет, то возвращаем директорию
