@@ -116,3 +116,16 @@ def aggregate(items):
 
 print(aggregate(items))
 """
+class Counter:
+    def __init__(self, value=0):
+        self.value = value
+
+    def inc(self, value=1):
+        next_value = self.value + value
+        self.value = next_value
+
+    def dec(self, value):
+        self.inc(-value)
+
+c1 = Counter(10)
+print(c1)
