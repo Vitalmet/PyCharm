@@ -116,6 +116,7 @@ def aggregate(items):
 
 print(aggregate(items))
 """
+"""
 class Person:
     def __init__(self, name, surname):
         self.name = name
@@ -138,5 +139,4 @@ class Person:
 tom = Person("Tom", "Smith")
 del tom.full_name
 print(tom.surname)
-
-
+"""
