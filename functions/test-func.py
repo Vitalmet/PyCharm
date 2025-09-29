@@ -140,3 +140,16 @@ tom = Person("Tom", "Smith")
 del tom.full_name
 print(tom.surname)
 """
+petya_speed = int(input())
+vasya_speed = int(input())
+tolya_speed = int(input())
+distance_in_km = 43872 / 1000
+time_petya = distance_in_km / petya_speed
+time_vasya = distance_in_km / vasya_speed
+time_tolya = distance_in_km / tolya_speed
+if time_petya < time_vasya and time_petya < time_tolya:
+    print("Петя")
+elif time_vasya < time_petya and time_vasya < time_tolya:
+    print("Вася")
+else:
+    print("Толя")
