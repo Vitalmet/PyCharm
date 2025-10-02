@@ -140,16 +140,30 @@ tom = Person("Tom", "Smith")
 del tom.full_name
 print(tom.surname)
 """
-petya_speed = int(input())
-vasya_speed = int(input())
-tolya_speed = int(input())
-distance_in_km = 43872 / 1000
-time_petya = distance_in_km / petya_speed
-time_vasya = distance_in_km / vasya_speed
-time_tolya = distance_in_km / tolya_speed
-if time_petya < time_vasya and time_petya < time_tolya:
-    print("Петя")
-elif time_vasya < time_petya and time_vasya < time_tolya:
-    print("Вася")
-else:
-    print("Толя")
+"""# ООП очень важный пример!
+class Address:
+    def __init__(self, street, house, zipcode):
+        self.street = street
+        self.house = house
+        self.zipcode = zipcode
+
+    def __str__(self):
+        return f"{self.street}, {self.house}, {self.zipcode}"
+
+
+class User:
+    def __init__(self, address):
+        self.street = address["street"]
+        self.house = address["house"]
+        self.zipcode = address["zipcode"]
+
+    def get_address(self):
+        # Поскольку у нас объект-значение,
+        # мы можем создавать его столько раз, сколько нам нужно,
+        # но при необходимости этот процесс можно оптимизировать
+        return Address(self.street, self.house, self.zipcode)
+
+
+address = {"street": "Красноярская", "house": 17, "zipcode": 565800}
+user = User(address)
+print(user.get_address())"""
