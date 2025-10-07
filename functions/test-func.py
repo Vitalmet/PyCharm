@@ -168,31 +168,7 @@ address = {"street": "Красноярская", "house": 17, "zipcode": 565800}
 user = User(address)
 print(user.get_address())"""
 
-class Collection:
-    def __init__(self, coll):
-        self.coll = coll
-
-    def map(self, fn):
-        return self.__class__(list(map(fn, self.coll)))
-
-    def filter(self, fn):
-        return self.__class__(list(filter(fn, self.coll)))
-
-    # Возвращает саму коллекцию, а не self.
-    # Этот метод всегда последний в цепочке вызовов Collection.
-    def all(self):
-        return self.coll
-cars = Collection(
-    [
-        {"model": "rapid", "year": 2016},
-        {"model": "rio", "year": 2013},
-        {"model": "mondeo", "year": 2011},
-        {"model": "octavia", "year": 2014},
-        {"model": "volga", "year": 2010},
-    ]
-)
-
-filtered_сars = cars.filter(lambda car: car["year"] > 2013)
-mapped_сars = filtered_сars.map(lambda car: car["model"])
-print(mapped_сars.all())  # ['rapid', 'octavia']
-print(cars.all())
+text = 'python'
+def trim_and_repeat(text, offest=3, repetitions=5):
+    return text - offest * repetitions
+print(trim_and_repeat(text))
