@@ -168,7 +168,14 @@ address = {"street": "Красноярская", "house": 17, "zipcode": 565800}
 user = User(address)
 print(user.get_address())"""
 
-text = 'python'
-def trim_and_repeat(text, offest=3, repetitions=5):
-    return text - offest * repetitions
-print(trim_and_repeat(text))
+name1 = input().strip()
+name2 = input().strip()
+name3 = input().strip()
+
+# Сравниваем имена лексикографически
+if name1 <= name2 and name1 <= name3:
+    print(name1)
+elif name2 <= name1 and name2 <= name3:
+    print(name2)
+else:
+    print(name3)
