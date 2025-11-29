@@ -1,0 +1,20 @@
+p {
+  color: blue;
+  font-weight: bold;
+}
+
+.important {
+  color: purple;
+  font-style: italic;
+}
+
+#intro {
+  color: green;
+}
+.alert {
+  color: gray;
+}
+
+.alert-error {
+  color: red;
+}
