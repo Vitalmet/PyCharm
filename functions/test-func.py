@@ -168,3 +168,8 @@ address = {"street": "Красноярская", "house": 17, "zipcode": 565800}
 user = User(address)
 print(user.get_address())"""
 
+import re
+c = re.compile("(?=.*[A-Z])(?=.*\\d+)(?=.*[&*$?=!@#+])(?=.*[a-z]).{8,}")
+res = c.match("Padsd45&,l")
+if res:
+    print(res.group())

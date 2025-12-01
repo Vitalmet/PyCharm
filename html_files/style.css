@@ -1,20 +1,47 @@
-p {
-  color: blue;
-  font-weight: bold;
+body {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    font-family: sans-serif;
+    line-height: 1.5;
 }
 
-.important {
-  color: purple;
-  font-style: italic;
+h1 {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    font-size: 60px;
+    text-align: center;
 }
 
-#intro {
-  color: green;
-}
-.alert {
-  color: gray;
+h2 {
+    margin-top: 0;
+    padding-bottom: 30px;
+    font-size: 25px;
+    text-align: center;
+    border-bottom: 2px solid #e3e3e3;
 }
 
-.alert-error {
-  color: red;
+main {
+    width: 900px;
+    margin: auto;
+}
+
+section {
+    margin: 50px 0;
+    padding: 0 50px;
+}
+
+section h2 {
+    padding: 0;
+    text-align: left;
+    border: none;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    list-style-type: none;
 }
