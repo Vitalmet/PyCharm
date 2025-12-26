@@ -4,3 +4,6 @@ telnet localhost 8080
 GET: /about HTTP/1.0
 
 #Урок 2
+telnet localhost 8080
+GET / HTTP/1.1
+host: hexlet.local
