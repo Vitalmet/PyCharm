@@ -1,9 +1,18 @@
-#Урок 1
+#Урок 2
 telnet localhost 8080
 
 GET: /about HTTP/1.0
 
-#Урок 2
+#Урок 3
 telnet localhost 8080
 GET / HTTP/1.1
 host: hexlet.local
+
+#Урок 4
+telnet localhost 8080
+POST /upload HTTP/1.1
+Host: hexlet.local
+Content-Type: text/plain
+Content-Length: 15
+
+my request body
