@@ -50,3 +50,10 @@ Host: hexlet.local
 # урок 10
 # тут самое главное "Accept: application/json" - говорим серваку какой формат ответа ожидаем
 curl -H "Accept: application/json" http://localhost:8080/users
+
+# урок 11
+telnet localhost 8080
+GET /account HTTP/1.1
+Host: hexlet.local
+Cookie: name=user; secret=secret_hash
+
