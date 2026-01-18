@@ -1,14 +1,13 @@
-#Урок 2
+# Урок 2
 telnet localhost 8080
-
 GET: /about HTTP/1.0
 
-#Урок 3
+# Урок 3
 telnet localhost 8080
 GET / HTTP/1.1
 host: hexlet.local
 
-#Урок 4
+# Урок 4
 telnet localhost 8080
 POST /upload HTTP/1.1
 Host: hexlet.local
@@ -17,7 +16,7 @@ Content-Length: 15
 
 my request body
 
-#урок 5
+# урок 5
 telnet localhost 8080
 POST /session/new HTTP/1.1
 Host: hexlet.local
@@ -26,25 +25,29 @@ Content-Length: 30
 
 username=admin&password=secret
 
-#урок 6
+# урок 6
 telnet localhost 8080
 GET /stream HTTP/1.1
 Host: hexlet.local
 
-#урок 7
+# урок 7
 telnet localhost 8080
 GET /?key=value&another_key=another_value HTTP/1.1
 Host: hexlet.local
 
-#урок 8
+# урок 8
 
 telnet localhost 8080
 POST /session/new HTTP/1.1
 Host: hexlet.local
 
-#урок 9
-
+# урок 9
 telnet localhost 8080
 GET /admin HTTP/1.1
 Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
 Host: hexlet.local
+
+# урок 10
+# тут самое главное "Accept: application/json" - говорим серваку какой формат ответа ожидаем
+
+curl -H "Accept: application/json" http://localhost:8080/users
