@@ -49,5 +49,4 @@ Host: hexlet.local
 
 # урок 10
 # тут самое главное "Accept: application/json" - говорим серваку какой формат ответа ожидаем
-
 curl -H "Accept: application/json" http://localhost:8080/users
