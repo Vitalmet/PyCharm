@@ -61,3 +61,21 @@ Cookie: name=user; secret=secret_hash
 
 curl -i GET http://localhost:8080
 curl -i -k https://localhost:8443
+
+# HTTP API
+# примеры запросов HTTP API
+
+curl -X 'GET' \
+  'https://http.hexlet.app/http-api/tasks' \
+  -H 'accept: application/json
+
+curl curl -X 'GET' \
+  'https://http.hexlet.app/http-api/tasks?skip=5&limit=10' \
+  -H 'accept: application/json'
+
+# урок 4
+
+telnet localhost 8080
+GET /users HTTP/1.1
+accept: application/json
+Host: hexlet.local
