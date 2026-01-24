@@ -79,3 +79,46 @@ telnet localhost 8080
 GET /users HTTP/1.1
 accept: application/json
 Host: hexlet.local
+
+# примеры задач к уроку №5
+telnet http.hexlet.app 80
+POST /http-api/tasks HTTP/1.1
+HOST: http.hexlet.app
+Content-Length: 60
+Content-Type: application/json
+
+{"title":"string","description":"string","status":"Backlog"}
+
+telnet http.hexlet.app 80
+GET /http-api/tasks HTTP/1.1
+HOST: http.hexlet.app
+
+telnet http.hexlet.app 80
+GET /http-api/tasks/-69022138 HTTP/1.1
+HOST: http.hexlet.app
+
+telnet http.hexlet.app 80
+PATCH /http-api/tasks/-9434459 HTTP/1.1
+HOST: http.hexlet.app
+Content-Length: 61
+Content-Type: application/json
+
+{"title":"string","description":"string","status":"Backlog"}
+
+telnet http.hexlet.app 80
+DELETE /http-api/tasks/-5824747 HTTP/1.1
+HOST: http.hexlet.app
+
+# урок 5
+telnet localhost 8080
+GET /comments HTTP/1.1
+accept: application/json
+Host: hexlet.local
+
+telnet localhost 8080
+PATCH /comments/3 HTTP/1.1
+Content-Type: application/json
+Content-Length: 20
+Host: hexlet.local
+
+{"text":"I got it!"}
