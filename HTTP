@@ -122,3 +122,7 @@ Content-Length: 20
 Host: hexlet.local
 
 {"text":"I got it!"}
+
+# урок 6
+
+http http://localhost:8080/courses Accept:application/json
