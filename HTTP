@@ -69,7 +69,7 @@ curl -X 'GET' \
   'https://http.hexlet.app/http-api/tasks' \
   -H 'accept: application/json
 
-curl curl -X 'GET' \
+curl -X 'GET' \
   'https://http.hexlet.app/http-api/tasks?skip=5&limit=10' \
   -H 'accept: application/json'
 
@@ -126,3 +126,18 @@ Host: hexlet.local
 # урок 6
 
 http http://localhost:8080/courses Accept:application/json
+
+# урок 7
+
+# метод greet
+curl -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"jsonrpc":"2.0","id":1,"method": "greet","params":{"name":"Tota"}}' \
+    http://localhost:8080/json-rpc
+
+# метод get_users
+
+curl -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"jsonrpc":"2.0","id":1,"method": "get_users"}' \
+    http://localhost:8080/json-rpc
