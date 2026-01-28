@@ -141,3 +141,46 @@ curl -X POST \
     -H 'Content-Type: application/json' \
     -d '{"jsonrpc":"2.0","id":1,"method": "get_users"}' \
     http://localhost:8080/json-rpc
+
+# урок 8
+
+curl -X POST https://http.hexlet.app/http-api/login \
+    -H "Content-Type: application/json" \
+    -d '{"email": "max@hotmail.com","password": "password"}'
+
+curl -X POST https://http.hexlet.app/http-api/posts \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer r4AR4Fo0j29s9mFk4IUVA2rGTQmIrHWlioifaJLSQQYHbTXHxtSLFUVp8PANrRoAb7fgkSsbN7lt4a86pcJ07ivUpxBLyyCHaY4Pp9I7hRPphCHM7xpZ1om1" \
+    -d '{"title": "My Post Title", "body": "body post"}'
+
+# задание из урока
+
+curl -X GET \
+   -H 'Content-Type: application/json' \
+   -H "X-API-Key: 1234asdf" \
+   http://localhost:8080/private
+
+
+# урок 9 примеры запросов
+
+curl -X POST https://http.hexlet.app/http-api/login \
+    -H "Content-Type: application/json" \
+    -d '{"email": "max@hotmail.com","password": "password"}'
+
+Authorization: Bearer <token>
+
+curl -X POST https://http.hexlet.app/http-api/users \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer token" \
+    -d '{"firstName": "SomeName", "lastName": "SomeLastName", "email": "home@hotmail.com", "password": "somePassword"}'
+
+
+# упражнение к уроку
+
+curl -X POST http://localhost:8080/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin"}'
+
+curl http://localhost:8080/private \
+   -H "Content-Type: application/json" \
+   -H "Authorization: Bearer I4f1usSWLgHN1oAGrAaKwBKLNiiyg1WS5GboYgDDtEpUAg0nyt1hFag4ecs7hqeIDXqZ2Dk6ij1zKy3Wqw6FlQT7zA8nlffPEhDZZsIwgE9eZH9tXl1ybEHY"
