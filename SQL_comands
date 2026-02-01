@@ -1,0 +1,47 @@
+-- команды для рабьоты в SQL
+
+psql postgres # что бы создать hexlet_db.
+CREATE DATABASE hexlet_db; # тчк с запятой обязательно, это завершение команды.
+psql hexlet_db # подключаемся к бд hexlet_db.
+
+-- создаем таблицу командой
+-- все имена используются как пример
+
+CREATE TABLE users (
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(255),
+    created_at TIMESTAMP
+);
+
+-- добавление пользователей в таблицу
+
+INSERT INTO users
+(first_name,  last_name, email, created_at)
+VALUES ('Lucienne', 'Feil',  'Trevion53@yahoo.com', '2022-06-14 18:31:05.296');
+
+INSERT INTO users
+(first_name,  last_name, email, created_at)
+VALUES ('Ramiro', 'Wolf',  'Baylee52@yahoo.com', '2022-06-14 02:04:13.104');
+
+INSERT INTO users
+(first_name,  last_name, email, created_at)
+VALUES ('Maureen', 'Romaguera',  'Casimer_Cronin@yahoo.com', '2022-06-14 02:28:26.058');
+
+-- что бы увидеть все таблицы \dt, затем \d имя_таблицы что бы увидеть ее структуру.
+
+-- запрост на редактирование записи
+UPDATE users SET email = 'Casimer_Cronin@gmail.com'
+WHERE last_name = 'Romaguera';
+
+-- удалени записи
+DELETE FROM users WHERE last_name = 'Romaguera';
+
+-- выбрать запись
+SELECT * FROM users WHERE first_name = 'Ramiro';
+
+-- удаление таблиц
+DROP TABLE users;
+
+-- "--" два дефиса это однострочный коментарий
+/* и */ это для многострочных коментариев
