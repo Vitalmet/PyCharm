@@ -49,3 +49,23 @@ DROP TABLE users;
 -- Утилита PSQL
 -- подключение к БД с помощью psql
 psql -h server_address -U username -d dbname
+
+-- урок 6
+-- примеры
+CREATE TABLE students (
+    id BIGINT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    bio TEXT,
+    is_studying BOOLEAN,
+    updated_at TIMESTAMP,
+    created_at TIMESTAMP
+  );
+-- решение задачи
+CREATE TABLE events (
+   id BIGINT,
+   name VARCHAR(50),
+   date DATE, time TIME,
+   location VARCHAR(100),
+   description TEXT);
