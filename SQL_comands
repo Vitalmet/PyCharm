@@ -126,3 +126,14 @@ CREATE TABLE article_categories (
     );
 INSERT INTO article_categories (name) VALUES ('Dave Grohl');
 INSERT INTO article_categories (name) VALUES ('Kurt Cobain');
+
+-- урок 8
+SELECT * FROM users; -- Этот запрос достает все содержимое таблицы users.
+SELECT username, email FROM users; --Если поля нужны не все, то достаточно перечислить их через запятую вместо звездочки.
+
+-- практическое задание к уроку
+/*Составьте запрос, который извлекает из таблицы companies:
+company_name — названия компаний
+url — адрес компаний в интернете*/
+
+SELECT company_name, url FROM companies;
