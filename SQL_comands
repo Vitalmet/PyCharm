@@ -1,4 +1,4 @@
--- команды для рабьоты в SQL
+-- команды для работы в SQL
 
 psql postgres -- подключаешься к дефолтной базе данных постгрес.
 CREATE DATABASE hexlet_db; -- тчк с запятой обязательно, это завершение команды.
@@ -156,3 +156,16 @@ SELECT first_name, last_name FROM users WHERE birthday <= '2000-01-01';
 
 --SELECT * FROM users WHERE birthday IS NOT NULL;
 --SELECT * FROM users WHERE created_at IS NULL;
+
+-- Урок 11 примеры
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name = 'Schumm';
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name LIKE 'Sch%';
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name LIKE 'Sch%';
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name LIKE '%man';
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name LIKE 'Sch%t';
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name LIKE 'sch%t';
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name ILIKE 'sch%t'; -- регистр не имеет значение
+SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name NOT LIKE '%man';
+
+-- задание из урока
+SELECT first_name, last_name, email FROM users WHERE email LIKE '%google.com';
