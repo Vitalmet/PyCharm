@@ -171,6 +171,15 @@ SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name NOT
 SELECT first_name, last_name, email FROM users WHERE email LIKE '%google.com';
 
 --Урок 12 (Регулярные выражения)
+SELECT
+    id,
+    first_name,
+    last_name,
+    email,
+    birthday
+FROM users
+WHERE first_name SIMILAR TO '[AB]%';
+
 WHERE first_name SIMILAR TO '[AB]%'; -- выбрать пользователей, чье имя начинается на 'A' или 'B
 WHERE username SIMILAR TO '%[a-z]'; -- вернет всех пользователей по условию: username заканчивается любой буквой
 WHERE username SIMILAR TO '%[а-я]%' -- вернет всех пользователей по условию: username заканчивается любой буквой
@@ -179,3 +188,6 @@ FROM users WHERE email SIMILAR TO '%@%.%'; --проверим, что в пол�
 FROM users WHERE email NOT SIMILAR TO '%@%.%'; -- частица NOT позволит найти строки, которые не соответствуют шаблону
 FROM users WHERE email SIMILAR TO '%@%.__' -- Символ подчеркивания обозначает ровно один любой символ, необязательно букву
 FROM users WHERE email SIMILAR TO '%.___'; --
+
+-- упражнение к уроку
+SELECT first_name, email FROM users WHERE telephone NOT SIMILAR TO '[0-9]{3}';
