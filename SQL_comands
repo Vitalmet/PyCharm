@@ -169,3 +169,13 @@ SELECT id, first_name, last_name, email, birthday FROM users WHERE last_name NOT
 
 -- задание из урока
 SELECT first_name, last_name, email FROM users WHERE email LIKE '%google.com';
+
+--Урок 12 (Регулярные выражения)
+WHERE first_name SIMILAR TO '[AB]%'; -- выбрать пользователей, чье имя начинается на 'A' или 'B
+WHERE username SIMILAR TO '%[a-z]'; -- вернет всех пользователей по условию: username заканчивается любой буквой
+WHERE username SIMILAR TO '%[а-я]%' -- вернет всех пользователей по условию: username заканчивается любой буквой
+WHERE username SIMILAR TO '%[0-9]'; -- вернет всех пользователей по условию: username заканчивается любой цифрой
+FROM users WHERE email SIMILAR TO '%@%.%'; --проверим, что в поле email введены корректные адреса электронной почты.
+FROM users WHERE email NOT SIMILAR TO '%@%.%'; -- частица NOT позволит найти строки, которые не соответствуют шаблону
+FROM users WHERE email SIMILAR TO '%@%.__' -- Символ подчеркивания обозначает ровно один любой символ, необязательно букву
+FROM users WHERE email SIMILAR TO '%.___'; --
