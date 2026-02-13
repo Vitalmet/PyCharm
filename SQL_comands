@@ -258,4 +258,77 @@ SELECT id, first_name, last_name
 FROM users
 WHERE first_name IN ('Lionel', 'Lucienne', 'Jennyfer'); -- IN можно использовать с другими типами данных — например, со строками.
 
+-- ПРАКТИЧЕСКОЕ ЗАНЯТИЕ К УРОКУ 15
+SELECT title
+FROM articles
+WHERE creator_id IN (1, 4);
 
+-- Урок 16 Оператор ORDER BY
+
+SELECT                        -- Сортировка задается с помощью оператора ORDER BY
+    id,
+    username,
+    created_at
+FROM users ORDER BY username;
+
+
+SELECT                         -- Сортировка по датам, отсортировали пользователей
+    id,                        -- по дате создания в прямом порядке, то есть по возрастанию.
+    username,
+    created_at
+FROM users ORDER BY created_at;
+
+-- Прямой порядок сортировки
+SELECT
+    id,
+    username,
+    created_at
+FROM users ORDER BY created_at ASC;
+-- То же самое, что и
+SELECT
+    id,
+    username,
+    created_at
+FROM users ORDER BY created_at;
+
+-- Обратный порядок сортировки
+SELECT
+    id,
+    username,
+    created_at
+FROM users
+ORDER BY created_at DESC;
+
+-- Сортировка по нескольким полям
+
+SELECT                                   -- перечислить поля через запятую
+    id,
+    username,
+    created_at
+FROM users ORDER BY username, created_at;
+
+-- Сортировка NULL-значений
+
+-- Сортируем по возрастанию даты, то есть поля `created_at`
+-- Поля с `NULL` идут первыми
+SELECT
+    id,
+    username,
+    created_at
+FROM users ORDER BY created_at ASC NULLS FIRST;
+
+-- Сортируем по убыванию даты
+-- Поля с `NULL` идут последними
+SELECT
+    id,
+    username,
+    created_at
+FROM users ORDER BY created_at DESC NULLS LAST;
+
+-- ПРАКТИЧЕСКОЕ ЗАНЯТИЕ К УРОКУ 16
+
+SELECT
+    first_name,
+    last_name,
+    salary
+FROM staff ORDER BY salary DESC, first_name ASC;
