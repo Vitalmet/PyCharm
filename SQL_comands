@@ -229,3 +229,33 @@ WHERE birthday BETWEEN '2022-01-01' AND '2022-02-01'; -- выбирает пол
 SELECT *
 FROM users
 WHERE birthday NOT BETWEEN '2022-01-01' AND '2022-02-01'; -- все записи, которые НЕ попадают в диапазон.
+
+-- Урок 15 оператор  IN
+
+SELECT                           /* один запрос и найти пользователей
+                                 с идентификаторами 1, 2 или 5. Для этого используют OR */
+    id,
+    first_name,
+    last_name
+FROM users
+WHERE id = 1 OR id = 2 OR id = 5;
+
+
+SELECT
+    id,
+    first_name,
+    last_name
+FROM users
+WHERE id IN (1, 2, 5); -- что бы не городить OR-ы пишем IN.
+
+
+SELECT id, first_name, last_name
+FROM users
+WHERE id NOT IN (1, 2, 5); -- Если нужно исключить определенные записи, достаточно добавить NOT перед IN.
+
+
+SELECT id, first_name, last_name
+FROM users
+WHERE first_name IN ('Lionel', 'Lucienne', 'Jennyfer'); -- IN можно использовать с другими типами данных — например, со строками.
+
+
