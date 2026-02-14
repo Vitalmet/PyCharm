@@ -332,3 +332,42 @@ SELECT
     last_name,
     salary
 FROM staff ORDER BY salary DESC, first_name ASC;
+
+-- Урок 17 Ограничение выборки
+-- Чтобы ограничить выборку, используется LIMIT.
+
+SELECT
+    id,
+    username,
+    email
+FROM users LIMIT 10; -- извлечь 10 записей.
+
+
+SELECT
+    id,
+    username,
+    email
+FROM users ORDER BY id LIMIT 10; -- Оператор LIMIT без сортировки практически никогда не используется
+
+SELECT
+    id,
+    username,
+    email
+FROM users ORDER BY id LIMIT 10 OFFSET 10; -- пагинацию — механизм, который позволяет перемещаться по страницам.
+
+-- Выбрать записи с 21 по 30
+SELECT
+    id,
+    username,
+    email
+FROM users ORDER BY id LIMIT 10 OFFSET 20;
+
+-- Выбрать записи с 31 по 40
+SELECT
+    id,
+    username,
+    email
+FROM users ORDER BY id LIMIT 10 OFFSET 30;
+
+-- ПРАКТИЧЕСКОЕ ЗАНЯТИЕ К УРОКУ 17
+
