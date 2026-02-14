@@ -371,3 +371,38 @@ FROM users ORDER BY id LIMIT 10 OFFSET 30;
 
 -- ПРАКТИЧЕСКОЕ ЗАНЯТИЕ К УРОКУ 17
 
+-- Урок 18 Уникальные строки
+-- oператор DISTINCT удаляет повторяющиеся строки запроса и оставляет только уникальные
+SELECT DISTINCT course_id FROM course_members ORDER BY course_id;
+
+-- DISTINCT добавляется в запрос только один раз,
+-- независимо от того, сколько колонок перечисляется
+SELECT DISTINCT
+    course_id,
+    user_id
+FROM course_members ORDER BY course_id;
+
+-- Оператор DISTINCT ON
+
+SELECT DISTINCT course_id, created_at FROM course_members ORDER BY course_id;
+
+SELECT DISTINCT ON (course_id) -- DISTINCT ON позволяет указать:
+    course_id,                 -- Поле, которое должно быть уникальным.
+    created_at                 -- Поля, которые нужно вывести.
+FROM course_members
+ORDER BY course_id, created_at;
+
+-- В DISTINCT ON можно указывать несколько полей в качестве уникальных:
+SELECT DISTINCT ON (course_id, created_at)
+    course_id,
+    created_at
+FROM course_members
+ORDER BY course_id;
+
+-- Сортировка с оператором DISTINCT ON
+
+SELECT DISTINCT ON (course_id)
+    course_id,
+    created_at
+FROM course_members
+ORDER BY course_id, created_at DESC;
