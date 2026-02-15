@@ -406,3 +406,82 @@ SELECT DISTINCT ON (course_id)
     created_at
 FROM course_members
 ORDER BY course_id, created_at DESC;
+
+-- УРОК 19 АГРЕГАТНЫЕ ФУНКЦИИ
+
+SELECT COUNT(*) FROM users; -- сколько записей содержится в таблице users
+SELECT COUNT(id) FROM users; -- функция вернет нам количество строк, в которых поле НЕ равно NULL
+SELECT COUNT(email_confirmed) FROM users; -- вернет 0 потому что в таблице поле email_confirmed не содержит никаких данных.
+SELECT COUNT(*) FROM users WHERE gender = 'female'; -- вернет количество девушек среди всех пользователей.
+SELECT SUM(spent_minutes) FROM course_reviews; --  возвращает сумму всех значений
+-- Если передать поле, в котором хранятся строки или даты, то запрос вернет ошибку и символ * тоже вернет ошибку
+SELECT AVG(spent_minutes) FROM course_reviews WHERE user_id = 9; -- Найдем среднее время, проведенное пользователем с id = 9 на площадке онлайн-школы
+SELECT MAX(spent_minutes) FROM course_reviews;-- найти максимальное и
+SELECT MIN(spent_minutes) FROM course_reviews; --минимальное значение соответственно
+SELECT MIN(username) FROM users; --Для строк минимальное и максимальное значения — это первая и
+SELECT MAX(username) FROM users; -- последняя строки, упорядоченные по алфавиту.
+
+--ПРАКТИКА К УРОКУ 19
+SELECT AVG (salary) FROM staff WHERE job_title = 'Engineer';
+
+-- УРОК 20 Группировка по выборке
+SELECT
+    user_id,
+    COUNT(*)
+FROM course_members
+GROUP BY user_id
+ORDER BY user_id;
+
+SELECT
+    user_id AS student,
+    COUNT(*) AS courses_count
+FROM course_members
+GROUP BY user_id
+ORDER BY user_id;
+
+SELECT
+    user_id AS student,
+    COUNT(user_id) AS courses_count,
+    MAX(created_at) AS last_reg
+FROM course_members
+GROUP BY user_id
+ORDER BY user_id;
+
+-- ПРАКТИКА К УРОКУ 20
+
+SELECT
+    job_title,
+    MAX (salary) AS max_salary,
+    MIN (salary) AS min_salary
+FROM staff
+GROUP BY job_title
+ORDER BY job_title;
+
+-- УРОК 21 Фильтрация c помощью оператора HAVING
+SELECT
+    user_id,
+    SUM(spent_minutes)
+FROM course_reviews
+GROUP BY user_id
+HAVING SUM(spent_minutes) < 30 -- айти пользователей, которые потратили менее 30 минут в онлайн-школе
+ORDER BY user_id;
+
+SELECT
+    user_id,
+    SUM(spent_minutes)
+FROM course_reviews
+WHERE user_id <= 40
+GROUP BY user_id
+HAVING SUM(spent_minutes) < 30 -- Условия в HAVING проверяются после группировки, поэтому они задаются после предложения GROUP BY
+ORDER BY user_id;
+
+-- ПРАКТИКА К УРОКУ 21
+
+SELECT
+  buyer_id,
+  COUNT(*) AS orders_count,
+  SUM(price) AS total_price
+FROM orders
+GROUP BY buyer_id
+HAVING COUNT(*) >= 2
+ORDER BY total_price DESC;
