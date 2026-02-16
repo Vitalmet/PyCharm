@@ -485,3 +485,39 @@ FROM orders
 GROUP BY buyer_id
 HAVING COUNT(*) >= 2
 ORDER BY total_price DESC;
+
+-- УРОК 22 ВСТАВКА И МОДИФИКАЦИЯ ДАННЫХ
+
+INSERT — запрос на вставку данных
+UPDATE — запрос на обновление данных
+DELETE — запрос на удаление данных
+
+INSERT INTO users (username, email, first_name, last_name, birthday, gender, id, created_at, password_digest)
+VALUES ('AgentJ', 'wsmith09@gmail.com', 'Will', 'Smith', '1968-09-25', 'male', 100, '2023-05-01', '11111'); -- добавление записи
+
+UPDATE users SET username = 'SuperAgent007' WHERE email = 'agent007@yahoo.com'; -- обновление запси.
+UPDATE users SET first_name = 'Pierce', last_name = 'Brosnan' WHERE email = 'agent007@yahoo.com'; -- Порядок, в котором изменяются поля, — не важен:
+UPDATE users SET first_name = 'John', last_name = 'Doe' ; -- Часть WHERE можно вообще не указывать.
+-- Потеря условия WHERE может обернуться перезаписью важных данных.
+
+-- Операции сравнения
+Мы можем использовать любые математические операции сравнения: больше, меньше, не равно и другие.
+UPDATE users SET first_name = 'John' WHERE birthday > '1970-01-01';
+
+-- Логические операции Мы можем использовать логические операции для объединения условий: И и ИЛИ.
+UPDATE users SET email = 'johndoe@yahoo.com'
+  WHERE first_name = 'John' AND last_name = 'Doe';
+
+UPDATE users SET first_name = 'John'
+  WHERE birthday BETWEEN '1950-01-01' AND '2000-01-01';
+
+UPDATE users SET username = 'secretagent' -- задаем приоритет с помошью скобок
+WHERE
+    (first_name = 'Sean' AND last_name = 'Connery') OR (birthday = '1968-09-25' AND gender = 'male');
+
+DELETE FROM users                                    -- запрос удалит из таблицы users пользователя с идентификатором 100,
+WHERE                                                -- а также все записи с датой, где дата рождения пользователя с 1968 года по 2000:
+    (birthday BETWEEN '1968-01-01' AND '2000-01-01') -- с 1968 года по 2000.
+    OR (id = 100);
+
+DELETE FROM users; -- Если никакое условие указано не будет, то будут удалены все записи из указанной таблицы.
