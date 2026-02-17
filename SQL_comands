@@ -521,3 +521,40 @@ WHERE                                                -- а также все з�
     OR (id = 100);
 
 DELETE FROM users; -- Если никакое условие указано не будет, то будут удалены все записи из указанной таблицы.
+
+-- УРОК 23 ОСНОВНЫЕ ОГРАНИЧЕНИЯ ПОЛЕЙ
+
+-- Ограничение UNIQUE
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(50),
+    email VARCHAR(255) UNIQUE, -- UNIQUE гарантирует, что в таблице будут уникальными.
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    created_at TIMESTAMP
+);
+
+-- Ограничение NOT NULL
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(50) NOT NULL, -- NOT NULL требует, чтобы значение в столбце не было NULL.
+    email VARCHAR(255) UNIQUE,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    created_at TIMESTAMP
+);
+
+-- Несколько ограничений одновременно
+
+CREATE TABLE users (
+  id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  birthday DATE,
+  email_confirmed BOOLEAN,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  gender VARCHAR(255) NOT NULL,
+  password_digest VARCHAR(255) NOT NULL,
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
+  created_at TIMESTAMP NOT NULL
+);
