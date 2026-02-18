@@ -558,3 +558,46 @@ CREATE TABLE users (
   last_name VARCHAR(50),
   created_at TIMESTAMP NOT NULL
 );
+
+-- УРОК 24 Изменение структуры таблицы (ALTER).
+
+-- Добавление колонки с помощью ALTER
+-- в таблицу "users"
+-- добавить колонку с именем "birthday" и типом "date"
+ALTER TABLE users ADD COLUMN birthday DATE;
+
+-- Переименование колонки
+-- добавляем колонку, которой еще нет.
+ALTER TABLE users ADD COLUMN name VARCHAR(255);
+-- в таблице "users"
+-- изменить колонку "name":
+-- поменять имя с "name" на "first_name"
+ALTER TABLE users RENAME COLUMN name TO first_name;
+
+-- Удаление колонки
+ALTER TABLE users ADD COLUMN age DATE;
+-- в таблице "users"
+-- удалить колонку с именем "age"
+ALTER TABLE users DROP COLUMN age;
+
+-- Обновление колонки
+CREATE TABLE courses (
+    id bigint PRIMARY KEY,
+    name varchar(255) NOT NULL,
+    body text,
+    created_at timestamp
+);
+
+-- Установка ограничения уникальности в таблице courses для колонки name
+ALTER TABLE courses
+ADD UNIQUE (name);
+
+-- Изменение типа данных в таблице courses для колонки created_at
+-- и снятие ограничения NOT NULL в таблице courses для колонки name
+ALTER TABLE courses
+ALTER COLUMN created_at SET DATA TYPE DATE,
+ALTER COLUMN name DROP NOT NULL;
+
+-- Установка ограничения NOT NULL в таблицу courses для колонки name
+ALTER TABLE courses
+ALTER COLUMN name SET NOT NULL;
