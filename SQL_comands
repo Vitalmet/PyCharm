@@ -601,3 +601,37 @@ ALTER COLUMN name DROP NOT NULL;
 -- Установка ограничения NOT NULL в таблицу courses для колонки name
 ALTER TABLE courses
 ALTER COLUMN name SET NOT NULL;
+
+-- УРОК 25 ТРАНЗАКЦИОННОСТЬ
+
+Получаем количество денег пользователя:
+
+SELECT amount FROM accounts
+WHERE user_id = 10;
+Списываем необходимую сумму со счета этого пользователя:
+
+UPDATE accounts SET amount = amount - 50
+WHERE user_id = 10;
+Зачисляем деньги другому пользователю:
+
+UPDATE accounts SET amount = amount + 50
+WHERE user_id = 30;
+
+BEGIN;
+SELECT amount FROM accounts
+WHERE user_id = 10;
+UPDATE accounts SET amount = amount - 50
+WHERE user_id = 10;
+UPDATE accounts SET amount = amount + 50
+WHERE user_id = 30;
+COMMIT;
+
+-- BEGIN - открытие транзакции
+-- COMMIT - закрытие транзакции
+-- Любая ошибка внутри транзакции откатывает все изменения, которые были сделаны после запроса BEGIN.
+
+-- Если нужно, транзакцию можно откатить самостоятельно.
+BEGIN;
+UPDATE accounts SET amount = amount - 50
+WHERE user_id = 10;
+ROLLBACK;
