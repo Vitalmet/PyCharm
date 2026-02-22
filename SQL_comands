@@ -635,3 +635,52 @@ BEGIN;
 UPDATE accounts SET amount = amount - 50
 WHERE user_id = 10;
 ROLLBACK;
+
+ ---------- SQL: Join -----------
+
+SELECT *
+FROM authors
+         INNER JOIN books ON authors.author_id = books.book_author_id;
+
+-- Виды соединений
+
+-- тип соединения	валидные пары	строки без пары из TableA	строки без пары из TableB
+-- TableA INNER JOIN TableB	добавляются	не добавляются	не добавляются
+-- TableA LEFT JOIN TableB	добавляются	добавляются	не добавляются
+-- TableA RIGHT JOIN TableB	добавляются	не добавляются	добавляются
+-- TableA FULL JOIN TableB	добавляются	добавляются	добавляются
+
+SELECT
+    author_name,
+    title
+FROM books
+INNER JOIN authors ON book_author_id = author_id;
+
+-- LEFT JOIN
+SELECT
+    dep.name AS department,
+    emp.name AS employee
+FROM departments AS dep
+LEFT JOIN employees AS emp ON
+    dep.department_id = emp.department_id;
+
+-- RIGHT JOIN
+SELECT
+    dep.name AS department,
+    emp.name AS employee
+FROM departments AS dep
+RIGHT JOIN employees AS emp ON
+    dep.department_id = emp.department_id;
+
+-- FULL JOIN
+
+SELECT
+    dep.name AS department,
+    emp.name AS employee
+FROM departments AS dep
+FULL JOIN employees AS emp ON
+    dep.department_id = emp.department_id;
+
+-- CROSS JOIN — это соединение без условия, оно возвращает все возможные сочетания строк из двух таблиц.
+-- INNER JOIN — это соединение возвращает только те пары строк, которые удовлетворяют специальному условию.
+-- LEFT JOIN, RIGHT JOIN, FULL JOIN — это соединения, которые добавляют к результату INNER JOIN строки без пары.
