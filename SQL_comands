@@ -684,3 +684,11 @@ FULL JOIN employees AS emp ON
 -- CROSS JOIN — это соединение без условия, оно возвращает все возможные сочетания строк из двух таблиц.
 -- INNER JOIN — это соединение возвращает только те пары строк, которые удовлетворяют специальному условию.
 -- LEFT JOIN, RIGHT JOIN, FULL JOIN — это соединения, которые добавляют к результату INNER JOIN строки без пары.
+
+-- CROSS JOIN (перекрестное соединение).
+
+SELECT
+    color_name,
+    material_name
+FROM colors -- первая таблица
+CROSS JOIN materials; -- вторая таблица
