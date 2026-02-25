@@ -692,3 +692,12 @@ SELECT
     material_name
 FROM colors -- первая таблица
 CROSS JOIN materials; -- вторая таблица
+
+-- INNER JOIN внутреннее соединение
+
+SELECT
+    author_name,
+    title
+FROM books -- первая таблица
+INNER JOIN authors -- вторая таблица
+    ON book_author_id = author_id; -- условие соединения таблиц
