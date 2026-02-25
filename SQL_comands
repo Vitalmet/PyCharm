@@ -700,4 +700,62 @@ SELECT
     title
 FROM books -- первая таблица
 INNER JOIN authors -- вторая таблица
-    ON book_author_id = author_id; -- условие соединения таблиц
+    ON book_author_id = author_id; -- условие соединения таблиц.
+
+-- Псевдонимы (aliases)
+--Имя таблицы перед именем столбца
+--Псевдонимы для таблиц
+--Псевдонимы для столбцов
+
+-- Имя таблицы перед именем столбца
+SELECT
+    employees.name,
+    departments.name -- добавили имена таблиц
+FROM employees
+INNER JOIN departments ON
+    -- добавили имена таблиц
+    employees.department_id = departments.department_id;
+
+-- Псевдонимы для таблиц
+
+SELECT
+    emp.name,
+    dep.name
+FROM employees AS emp -- объявили псевдоним для employees
+INNER JOIN departments AS dep ON -- объявили псевдоним для departments
+    emp.department_id = dep.department_id;
+
+-- Псевдонимы для столбцов
+
+-- добавили псевдонимы для столбцов
+SELECT
+    emp.name AS employee,
+    dep.name AS department
+FROM employees AS emp
+INNER JOIN departments AS dep ON
+    emp.department_id = dep.department_id;
+
+SELECT
+    emp.name AS employee,
+    -- название отдела в верхнем регистре
+    UPPER(dep.name) AS department_upcase
+FROM employees AS emp
+INNER JOIN departments AS dep
+    ON
+        emp.department_id = dep.department_id
+ORDER BY department_upcase; -- сортировка по названию отдела в верхнем регистре
+
+
+-- INNER JOIN и WHERE
+
+SELECT
+    authors.author_name,
+    books.title
+FROM books
+INNER JOIN authors
+    ON
+        books.author_id = authors.author_id -- связываем книги с их авторами
+WHERE
+    books.language = 'Russian' -- издание на русском языке
+    AND authors.origin != 'Russia' -- иностранный автор.
+
