@@ -759,3 +759,16 @@ WHERE
     books.language = 'Russian' -- издание на русском языке
     AND authors.origin != 'Russia' -- иностранный автор.
 
+-- INNER JOIN и GROUP BY
+
+SELECT
+    dep.name AS department, -- название отдела
+    -- количество сотрудников в отделе
+    COUNT(emp.employee_id) AS employees_count,
+    SUM(emp.salary) AS total_salary -- суммарная зарплата отдела
+FROM departments AS dep
+INNER JOIN employees AS emp
+    ON
+        -- связываем сотрудников с отделами
+        dep.department_id = emp.department_id
+GROUP BY dep.name -- группировка по отделам
