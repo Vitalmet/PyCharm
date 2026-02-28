@@ -771,4 +771,30 @@ INNER JOIN employees AS emp
     ON
         -- связываем сотрудников с отделами
         dep.department_id = emp.department_id
-GROUP BY dep.name -- группировка по отделам
+GROUP BY dep.name -- группировка по отделам.
+
+-- LEFT JOIN (Левое внешнее соединение).
+
+SELECT
+    dep.name AS department,
+    emp.name AS employee
+FROM departments AS dep
+LEFT JOIN employees AS emp ON -- левое внешнее соединение
+    dep.department_id = emp.department_id
+    SELECT
+    dep.name AS department,
+    COUNT(emp.employee_id) AS employees_count
+FROM departments AS dep
+LEFT JOIN employees AS emp
+    ON
+        dep.department_id = emp.department_id
+GROUP BY dep.name
+
+SELECT
+    dep.name AS department,
+    COUNT(emp.employee_id) AS employees_count
+FROM employees AS emp
+RIGHT JOIN departments AS dep
+    ON
+        dep.department_id = emp.department_id
+GROUP BY dep.name
