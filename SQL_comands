@@ -899,3 +899,6 @@ WHERE emp.department_id IN (
     FROM departments AS dep
     WHERE dep.city = 'Vladivostok'
 );
+
+-- Коррелированные подзапросы.
+
