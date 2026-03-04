@@ -818,3 +818,84 @@ SELECT
 FROM departments AS dep
 FULL JOIN employees AS emp ON
     dep.department_id = emp.department_id;
+
+
+-- SELF JOIN (соединение таблицы с собой)
+
+SELECT
+    empl.employee_name,
+    mngr.employee_name AS manager_name
+FROM employees AS empl -- Из таблицы employees мы загружаем сотрудников, поэтому дали ей псевдоним empl.
+LEFT JOIN employeescopy AS mngr ON -- Из таблицы employeesCopy мы загружаем менеджеров, поэтому дали ей псевдоним mngr.
+    empl.manager_id = mngr.employee_id;
+
+SELECT
+    empl.employee_name,
+    mngr.employee_name AS manager_name
+FROM employees AS empl
+LEFT JOIN employees AS mngr ON
+    empl.manager_id = mngr.employee_id
+
+-- Применяем SELF JOIN для поиска «дубликатов»/
+
+SELECT
+    u1.nickname AS first_nickname,
+    u2.nickname AS second_nickname,
+    u1.email
+FROM users AS u1
+INNER JOIN users AS u2 ON
+    u1.email = u2.email
+    AND u1.user_id != u2.user_id
+
+-- Соединение трех и более таблиц.
+
+SELECT
+    drv.driver_name AS driver, -- имя водителя
+    pas.passenger_name AS passenger, -- имя пассажира
+    rd.price AS ride_price -- стоимость поездки
+FROM rides AS rd
+INNER JOIN drivers AS drv
+    ON -- первое соединение
+        rd.driver_id = drv.driver_id
+INNER JOIN passengers AS pas ON -- второе соединение
+    rd.passenger_id = pas.passenger_id.
+
+-- Подзапросы.
+
+-- Первый этап. Найдем идентификатор отдела по его названию:
+
+-- Первый запрос
+
+SELECT dep.department_id
+FROM departments AS dep
+WHERE dep.name = 'Development Department';
+
+-- Второй этап. Воспользуемся найденным идентификатором и построим список сотрудников отдела:
+
+-- Второй запрос
+
+SELECT emp.name AS employee
+FROM employees AS emp
+WHERE emp.department_id = 1;
+
+-- Теперь рассмотрим решение этой же задачи с помощью подзапроса:
+SELECT emp.name AS employee
+FROM employees AS emp
+WHERE emp.department_id = (
+    SELECT dep.department_id
+    FROM departments AS dep
+    WHERE dep.name = 'Development Department';
+);
+
+-- Подзапросы, которые возвращают набор значений.
+SELECT dep.department_id
+FROM departments AS dep
+WHERE dep.city = 'Vladivostok';
+
+SELECT emp.name as employee
+FROM employees AS emp
+WHERE emp.department_id IN (
+    SELECT dep.department_id
+    FROM departments AS dep
+    WHERE dep.city = 'Vladivostok'
+);
