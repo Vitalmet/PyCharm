@@ -899,6 +899,41 @@ WHERE emp.department_id IN (
     FROM departments AS dep
     WHERE dep.city = 'Vladivostok'
 );
+-- Подзапросы и соединения.
 
--- Коррелированные подзапросы.
+-- Решение с помощью соединения:
+SELECT bk.title
+FROM books AS bk
+INNER JOIN authors AS au
+    ON
+        bk.book_author_id = au.author_id
+WHERE au.author_name = 'А.С. Пушкин';
 
+-- Рассмотрим решение с помощью подзапроса:
+SELECT bk.title
+FROM books AS bk
+WHERE bk.book_author_id = (
+    SELECT au.author_id
+    FROM authors AS au
+    WHERE au.author_name = 'А.С. Пушкин'
+);
+
+-- нам надо построить список книг вместе с их авторами:
+-- Решение с помощью соединения:
+SELECT
+    bk.title,
+    au.author_name
+FROM books AS bk
+INNER JOIN authors AS au ON
+    bk.book_author_id = au.author_id;
+
+-- Решение с помощью подзапроса:
+
+SELECT
+    bk.title,
+    (
+        SELECT au.author_name
+        FROM authors AS au
+        WHERE au.author_id = bk.book_author_id
+    ) AS author_name
+FROM books AS bk
