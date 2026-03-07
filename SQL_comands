@@ -936,4 +936,44 @@ SELECT
         FROM authors AS au
         WHERE au.author_id = bk.book_author_id
     ) AS author_name
+FROM books AS bk.
+
+-- VIEW и CTE.
+-- Сервис отображает подборки книг,
+-- например, 50 лучших приключенческих книг.
+-- Такую подборку можно сформировать с помощью запроса:
+SELECT bk.title
 FROM books AS bk
+WHERE bk.genre = 'Роман'
+ORDER BY bk.users_score DESC
+LIMIT 50
+
+-- обобщенные табличные выражения — CTE (Common Table Expressions).
+-- Рассмотрим такое решение:
+
+WITH user_filtered_books AS ( -- объявляем CTE
+    -- запрос, который отбирает книги по индивидуальному фильтру
+    SELECT *
+    FROM books AS bk
+    WHERE bk.age_rating <> '18+'
+)
+
+-- запрос, который формирует подборку
+SELECT ufb.title
+FROM user_filtered_books AS ufb -- используем CTE
+WHERE ufb.genre = 'Роман'
+ORDER BY ufb.users_score DESC
+LIMIT 50
+
+-- Применяем представления, представление или VIEW — это виртуальная таблица.
+
+CREATE VIEW books_for_non_adult AS
+SELECT *
+FROM books AS bk
+WHERE bk.age_rating <> '18+';
+
+SELECT bfna.title
+FROM books_for_non_adult AS bfna -- используем VIEW
+WHERE bfna.genre = 'Роман'
+ORDER BY bfna.users_score DESC
+LIMIT 10
