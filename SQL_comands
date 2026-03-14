@@ -977,3 +977,6 @@ FROM books_for_non_adult AS bfna -- используем VIEW
 WHERE bfna.genre = 'Роман'
 ORDER BY bfna.users_score DESC
 LIMIT 10
+
+
+conn = psycopg2.connect("postgresql://vital:KurT1994!!!@host:localhost/hexlet_db")
