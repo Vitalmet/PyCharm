@@ -17,3 +17,19 @@ def get_all_movies(conn):
     movies = cursor.fetchall()
     cursor.close()
     return movies
+
+# урок 3
+
+import psycopg2
+
+conn = psycopg2.connect('postgresql://tirion:secret@localhost:5432/tirion')
+
+
+# BEGIN (write your solution here)
+def get_all_cars(conn):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM cars ORDER BY brand;")
+    all_cars = cursor.fetchall()
+    cursor.close()
+    return all_cars
+# END
