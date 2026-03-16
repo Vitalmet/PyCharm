@@ -153,4 +153,37 @@ def get_all_products(conn):
     return result
 # END
 
+# урок 5
 
+import psycopg2
+from psycopg2.extras import DictCursor
+
+conn = psycopg2.connect('postgresql://tirion:secret@localhost:5432/tirion')
+
+
+# BEGIN (write your solution here)
+def get_order_sum(conn, month):
+    cursor = conn.cursor()
+
+    # Запрос с JOIN, фильтрацией по месяцу и группировкой
+    cursor.execute("""
+        SELECT 
+            c.customer_name,
+            SUM(o.total_amount) as total
+        FROM orders o
+        JOIN customers c ON o.customer_id = c.customer_id
+        WHERE EXTRACT(MONTH FROM o.order_date) = %s
+        GROUP BY c.customer_id, c.customer_name
+        ORDER BY c.customer_name
+    """, (month,))
+
+    # Формируем строку результата
+    result_lines = []
+    for row in cursor:
+        result_lines.append(f"Покупатель {row[0]} совершил покупок на сумму {row[1]}")
+
+    cursor.close()
+
+    # Объединяем строки с переносом
+    return "\n".join(result_lines)
+# END
