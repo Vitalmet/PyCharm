@@ -187,3 +187,68 @@ def get_order_sum(conn, month):
     # Объединяем строки с переносом
     return "\n".join(result_lines)
 # END
+
+# урок 6
+import psycopg2
+from psycopg2.extras import DictCursor
+
+conn = psycopg2.connect('postgresql://tirion:secret@localhost:5432/tirion')
+
+
+# BEGIN (write your solution here)
+def create_post(conn, post_data):
+    with conn.cursor(cursor_factory=RealDictCursor) as curs:
+        # Вставляем данные из словаря
+        curs.execute("""
+            INSERT INTO posts (title, content, author_id)
+            VALUES (%s, %s, %s)
+            RETURNING id
+        """, (post_data['title'], post_data['content'], post_data['author_id']))
+
+        # Получаем результат с id
+        result = curs.fetchone()
+
+        # Возвращаем id созданного поста
+        return result['id']
+
+
+def add_comment(conn, dict_comm_data):
+    with conn.cursor(cursor_factory=RealDictCursor) as curs:
+        curs.execute("""
+        INSERT INTO comments (post_id, author_id, content)
+        VALUES (%s, %s, %s)
+        RETURNING id
+        """, (dict_comm_data['post_id'], dict_comm_data['author_id'], dict_comm_data['content']))
+
+        result = curs.fetchone()
+
+        return result['id']
+
+
+from psycopg2.extras import RealDictCursor
+
+def get_latest_posts(conn, n):
+    with conn.cursor(cursor_factory=RealDictCursor) as curs:
+        # Сначала получаем n последних постов
+        curs.execute("""
+            SELECT id, title, content, author_id, created_at
+            FROM posts
+            ORDER BY created_at DESC
+            LIMIT %s
+        """, (n,))
+
+        posts = curs.fetchall()
+
+        # Для каждого поста получаем комментарии
+        for post in posts:
+            curs.execute("""
+                SELECT id, author_id, content, created_at
+                FROM comments
+                WHERE post_id = %s
+                ORDER BY created_at
+            """, (post['id'],))
+
+            post['comments'] = curs.fetchall()
+
+        return posts
+# END
