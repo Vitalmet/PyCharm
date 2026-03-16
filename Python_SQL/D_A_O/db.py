@@ -40,3 +40,9 @@ def find_user(conn, user_id):
         if result:
             return User(**result)
     return None
+
+def delete_user(conn, user_id):
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
+        # Возвращаем количество удаленных строк (1 если пользователь был, 0 если нет)
+        return cur.rowcount > 0
