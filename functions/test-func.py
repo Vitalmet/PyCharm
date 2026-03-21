@@ -76,3 +76,26 @@ async def main() -> None:
 if __name__ == "__main__":
     asyncio.run(main())'''
 
+import asyncio
+import math
+import sys
+from concurrent.futures import ProcessPoolExecutor
+
+
+def calc_factorial(n: int) -> int:
+    return math.factorial(n)
+
+
+async def main() -> None:
+    sys.set_int_max_str_digits(1000000)
+    loop = asyncio.get_running_loop()
+    with ProcessPoolExecutor(max_workers=4) as pool:
+        numbers = [100_000, 120_000, 80_000, 110_000]
+        tasks = [loop.run_in_executor(pool, calc_factorial, n) for n in numbers]
+        results = await asyncio.gather(*tasks)
+        print([len(str(r)) for r in results])
+        # => [456574, 557390, 357507, 506784]
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
