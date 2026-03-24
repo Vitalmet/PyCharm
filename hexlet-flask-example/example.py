@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 
 # Это callable WSGI-приложение
 app = Flask(__name__)
@@ -13,6 +13,6 @@ def users_get():
     return "GET /users"
 
 @app.post("/users")
-def users_post():
-    return "POST /users"
+def users():
+    return redirect("/")
 
