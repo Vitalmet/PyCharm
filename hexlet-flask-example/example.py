@@ -16,3 +16,7 @@ def users_get():
 def users():
     return redirect("/")
 
+@app.route("/courses/<id>")
+def courses_show(id):
+    return f"Course id: {id}"
+
