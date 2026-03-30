@@ -18,13 +18,13 @@ users = (
     ("Alice", "0987"),
     ("John", "234646757"),
 )
-execute_batch(curs, "INSERT INTO users (username, phone) VALUES (%s, %s)", users)
+execute_batch(curs, "INSERT INTO courses (username, phone) VALUES (%s, %s)", users)
 
 # Сохраняем изменения
 conn.commit()
 
 # Проверяем, что добавилось
-curs.execute("SELECT * FROM users;")
+curs.execute("SELECT * FROM courses;")
 for row in curs.fetchall():
     print(row)
 

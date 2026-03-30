@@ -57,13 +57,13 @@ age = 19
 with conn.cursor() as curs:
     # для позиционных аргументов всегда передается последовательность, даже если параметр один
     # здесь передается кортеж (name,)
-    curs.execute("SELECT id, name FROM users WHERE name=%s;", (name,))
+    curs.execute("SELECT id, name FROM courses WHERE name=%s;", (name,))
     curs.fetchall()
 
 with conn.cursor() as curs:
     # также можно использовать именованные аргументы
     curs.execute(
-        "INSERT INTO users (name, age) VALUES (%(name)s, %(age)s);",
+        "INSERT INTO courses (name, age) VALUES (%(name)s, %(age)s);",
         {"age": age, "name": name},
     )
     conn.commit()
@@ -74,20 +74,20 @@ conn.close()
 
 from psycopg2.extras import execute_batch, execute_values
 
-users = (
+courses = (
     ("Bob", "bob@mail.com"),
     ("Alice", "alice@mail.com"),
     ("John", "john@mail.com"),
 )
-execute_batch(curs, "INSERT INTO users (name, email) VALUES (%s, %s)", users)
+execute_batch(curs, "INSERT INTO courses (name, email) VALUES (%s, %s)", courses)
 
 # в случае execute_values запрос будет выглядеть так
-users = [
+courses = [
     ("Bob", "bob@mail.com"),
     ("Alice", "alice@mail.com"),
     ("John", "john@mail.com"),
 ]
-execute_values(curs, "INSERT INTO users (name, email) VALUES %s", users)
+execute_values(curs, "INSERT INTO courses (name, email) VALUES %s", courses)
 
 Возврат идентификатора
 
@@ -100,7 +100,7 @@ id = user.get_id()
 # RETURNING возвращает указанное поле
  with conn.cursor() as cur:
         cur.execute(
-            "INSERT INTO users (name, email) VALUES (%s, %s) RETURNING id;",
+            "INSERT INTO courses (name, email) VALUES (%s, %s) RETURNING id;",
             (user.name, user.email)
         )
         user.id = cur.fetchone()[0]

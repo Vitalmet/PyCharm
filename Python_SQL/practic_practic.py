@@ -9,7 +9,7 @@ conn = psycopg2.connect(
     host="localhost"
 )
 
-sql = "INSERT INTO users (username, phone) VALUES ('Ыспанец-Гриша', '457458');"
+sql = "INSERT INTO courses (username, phone) VALUES ('Ыспанец-Гриша', '457458');"
 
 curs = conn.cursor()
 curs.execute(sql)
