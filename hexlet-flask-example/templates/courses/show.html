@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Курс №{{ course_id }}{% endblock %}
+
+{% block content %}
+    <h1>Курс №{{ course_id }}</h1>
+
+    <p><strong>ID курса:</strong> {{ course_id }}</p>
+    <p><strong>Описание курса:</strong> Информация о курсе будет добавлена позже</p>
+    
+    <p><a href="/courses/">← Назад к списку курсов</a></p>
+{% endblock %}

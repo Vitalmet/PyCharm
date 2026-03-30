@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Список курсов{% endblock %}
+
+{% block content %}
+    <h1>Доступные курсы</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название курса</th>
+                <th>Детали</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.id }}</td>
+                <td>{{ course.name }}</td>
+                <td>
+                    <a href="/courses/{{ course.id }}">Просмотреть</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

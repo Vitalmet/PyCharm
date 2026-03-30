@@ -17,9 +17,22 @@ def users_get():
 def users():
     return 'Users', 302
 
-@app.route("/courses/<id>")
+@app.route("/courses/<int:id>")
 def courses_show(id):
-    return f"Course id: {id}"
+    # Создаем объект курса
+    course = {
+        "id": id,
+        "name": f"Курс #{id}",
+        "description": "Описание курса появится позже",
+        "duration": "Не указана"
+    }
+    return render_template('courses/show.html', course=course)
+
+@app.route("/courses")
+def courses_list():
+    # Можно передать пустой список или сгенерировать данные на лету
+    empty_courses = []
+    return render_template('courses/index.html', courses=empty_courses)
 
 @app.route('/users/<id>')
 def show_user(id):
