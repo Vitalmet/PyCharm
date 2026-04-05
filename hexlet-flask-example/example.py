@@ -20,7 +20,7 @@ def get_users():
     term = request.args.get('term', '')
     filtered_users = [user for user in users if term in user['name']]
     return render_template(
-        'users.index.html',
+        'users/index.html',
         users=filtered_users,
         search=term,
     )
