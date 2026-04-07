@@ -3,7 +3,7 @@ import uuid
 import logging
 from urllib import request
 
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 
 
 #настройка логирования
@@ -79,8 +79,8 @@ def users_post():
         logger.info(f"Создан новый пользователь: id={id}, name={user['name']}, email={user['email']}")
     except Exception as e:
         logger.error(f"Ошибка при сохранении пользователя в файл: {e}")
-        return redirect('/users', code=302)
-    return redirect('/users', code=302)
+        return redirect(url_for('get_users'), code=302)
+    return redirect(url_for('get_users'), code=302)
 
 @app.route("/users/new")
 def users_new():

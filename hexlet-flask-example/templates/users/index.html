@@ -3,10 +3,12 @@
 {% block title %}Пользователи{% endblock %}
 
 {% block content %}
-<form action="/users" method="get">
+<form action="{{ url_for('get_users') }}" method="get">
     <input type="search" name="term" value="{{ search }}" />
     <input type="submit" value="Search" />
 </form>
+
+<a href="{{ url_for('users_new') }}">Добавить пользователя</a>
 
 <table>
      {% for user in users %}
@@ -14,6 +16,9 @@
        <td>
            {{ user.id }}
        </td>
+         <td>
+             <a href="{{ url_for('show_user', id=user.id) }}">{{ user.name }}</a>
+         </td>
        <td>
            {{ user.name }}
        </td>
