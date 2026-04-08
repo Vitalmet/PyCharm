@@ -1,22 +1,22 @@
 <h1>Новый пользователь</h1>
 <hr>
-<form action="/users" method="post">
+<form action="{{ url_for('users_post') }}" method="post">
   <div>
     <label for="user-name">
       Имя:
-      <input type="text" id="user-name" name="name" value="{{ user.name if user else '' }}">
+      <input type="text" id="user-name" name="name" value="{{ user.name if user and user.name else '' }}">
     </label>
-    {% if errors['name'] %}
-    <div>{{ errors['name'] }}</div>
+    {% if errors and errors.get('name') %}
+    <div style="color: red;">{{ errors['name'] }}</div>
     {% endif %}
   </div>
   <div>
     <label for="user-email">
       Email:
-      <input type="text" id="user-email" name="email" value="{{ user.email if user else '' }}">
+      <input type="text" id="user-email" name="email" value="{{ user.email if user and user.email else '' }}">
     </label>
-    {% if errors['email'] %}
-    <div>{{ errors['email'] }}</div>
+    {% if errors and errors.get('email') %}
+    <div style="color: red;">{{ errors['email'] }}</div>
     {% endif %}
   </div>
   <div>

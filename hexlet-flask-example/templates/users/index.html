@@ -4,25 +4,35 @@
 
 {% block content %}
 <form action="{{ url_for('get_users') }}" method="get">
-    <input type="search" name="term" value="{{ search }}" />
-    <input type="submit" value="Search" />
+    <input type="search" name="term" value="{{ search }}" placeholder="Поиск по имени..."/>
+    <input type="submit" value="Найти" />
 </form>
 
-<a href="{{ url_for('users_new') }}">Добавить пользователя</a>
+<p><a href="{{ url_for('users_new') }}">Добавить пользователя</a></p>
 
-<table>
-     {% for user in users %}
-     <tr>
-       <td>
-           {{ user.id }}
-       </td>
-         <td>
-             <a href="{{ url_for('show_user', id=user.id) }}">{{ user.name }}</a>
-         </td>
-       <td>
-           {{ user.name }}
-       </td>
-     </tr>
-     {% endfor %}
- </table>
+<h2>Список пользователей</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>
+                <a href="{{ url_for('show_user', id=user.id) }}">{{ user.name }}</a>
+            </td>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="3">Пользователи не найдены</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

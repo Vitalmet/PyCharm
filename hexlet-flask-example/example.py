@@ -3,7 +3,16 @@ import uuid
 import logging
 from urllib import request
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import (
+    Flask,
+    redirect,
+    render_template,
+    request,
+    url_for,
+    get_flashed_messages,
+    flash
+)
+
 
 
 #настройка логирования
@@ -15,6 +24,8 @@ logger = logging.getLogger(__name__)
 
 # Это callable WSGI-приложение
 app = Flask(__name__)
+app.secret_key = "secret_key"
+
 try:
     users = json.load(open('users.json'))
     logger.debug(f"Загружено {len(users)} пользователей из users.json")
@@ -44,7 +55,7 @@ def get_users():
         logger.error(f"Ошибка парсинга users.json при чтении: {e}")
         users = []
 
-
+    messages = get_flashed_messages(with_categories=True)
     term = request.args.get('term', '')
     filtered_users = [user for user in users if term in user['name']]
     logger.debug(f"Поиск по запросу '{term}': найдено {len(filtered_users)} пользователей")
@@ -52,6 +63,7 @@ def get_users():
         'users/index.html',
         users=filtered_users,
         search=term,
+        messages=messages,
     )
 
 @app.post('/users')
@@ -62,8 +74,8 @@ def users_post():
     if errors:
         logger.warning(f"Ошибки валидации при создании пользователя: {errors}")
         return render_template(
-            'users.new.html',
-            users=user_data,
+            'users/new.html',
+            user=user_data,
             errors=errors,
         )
     id = str(uuid.uuid4())
@@ -75,11 +87,11 @@ def users_post():
     users.append(user)
     try:
         with open('./users.json', 'w') as f:
-            json.dump(user, f)
+            json.dump(users, f)
         logger.info(f"Создан новый пользователь: id={id}, name={user['name']}, email={user['email']}")
     except Exception as e:
         logger.error(f"Ошибка при сохранении пользователя в файл: {e}")
-        return redirect(url_for('get_users'), code=302)
+        flash('Пользователь успешно добавлен', 'success')
     return redirect(url_for('get_users'), code=302)
 
 @app.route("/users/new")
@@ -103,7 +115,7 @@ def show_user(id):
         user = next(user for user in users if id == str(user['id']))
         logger.debug(f"Найден пользователь: {user['name']}")
         return render_template(
-            'users.show.html',
+            'users/show.html',
             user=user,
         )
     except FileNotFoundError as e:
