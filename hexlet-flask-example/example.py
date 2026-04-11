@@ -24,14 +24,6 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = "secret_key"
 
-try:
-    users = json.load(open('users.json'))
-except FileNotFoundError as e:
-    logger.error(f"Файл users.json не найден: {e}")
-    users = []
-except json.JSONDecodeError as e:
-    logger.error(f"Ошибка парсинга users.json: {e}")
-    users = []
 
 @app.route("/")
 def hello_world():
@@ -59,29 +51,44 @@ def get_users():
         messages=messages,
     )
 
+
 @app.post('/users')
 def users_post():
     user_data = request.form.to_dict()
     errors = validate(user_data)
+
     if errors:
         return render_template(
             'users/new.html',
             user=user_data,
             errors=errors,
         )
+
+    # ✅ Читаем актуальные данные ИЗ ФАЙЛА прямо сейчас
+    try:
+        with open('users.json', 'r') as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        users = []  # Если файла нет, начинаем с пустого списка
+
     id = str(uuid.uuid4())
     user = {
         'id': id,
         'name': user_data['name'],
         'email': user_data['email'],
     }
-    users.append(user)
+
+    users.append(user)  # ✅ Добавляем в свежепрочитанный список
+
     try:
-        with open('./users.json', 'w') as f:
+        with open('users.json', 'w') as f:
             json.dump(users, f)
-    except Exception as e:
-        logger.error(f"Ошибка при сохранении пользователя в файл: {e}")
         flash('Пользователь успешно добавлен', 'success')
+    except Exception as e:
+        logger.error(f"Ошибка при сохранении: {e}")
+        flash('Ошибка при сохранении пользователя', 'error')
+        return render_template('users/new.html', user=user_data, errors=errors)
+
     return redirect(url_for('get_users'), code=302)
 
 @app.route("/users/new")
