@@ -1,5 +1,3 @@
-import json
-import uuid
 import logging
 from urllib import request
 
@@ -14,7 +12,7 @@ from flask import (
 )
 from user_repository import UserRepository
 
-# Минимальное логирование - только ошибки
+
 logging.basicConfig(
     level=logging.ERROR,  # Изменено с DEBUG на ERROR
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -34,7 +32,7 @@ def hello_world():
 @app.route("/users/")
 def get_users():
     repo = UserRepository()
-    users = repo.get_content()  # Добавьте этот метод в UserRepository
+    users = repo.get_content()
 
     messages = get_flashed_messages(with_categories=True)
     term = request.args.get('term', '')
@@ -136,6 +134,20 @@ def users_patch(id):
         flash('Ошибка при обновлении пользователя', 'error')
         return render_template('users/edit.html', user=user, errors=errors), 500
 
+    return redirect(url_for('get_users'), code=302)
+
+
+@app.route("/users/<id>/delete", methods=['POST'])
+def users_delete(id):
+    repo = UserRepository()
+
+    user = repo.find(id)
+    if not user:
+        flash('Пользователь не найден', 'error')
+        return redirect(url_for('get_users'), code=302)
+
+    repo.destroy(id)
+    flash('Пользователь удален', 'success')
     return redirect(url_for('get_users'), code=302)
 
 

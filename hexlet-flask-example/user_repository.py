@@ -48,3 +48,16 @@ class UserRepository():
         self.users.append(new_user)
         self._save_users()
         return new_user['id']
+
+    def destroy(self, id):
+        """Удаляет пользователя по id"""
+        self._load_users()
+
+        original_count = len(self.users)
+        self.users = [user for user in self.users if str(user.get('id', '')) != str(id)]
+
+        if len(self.users) == original_count:
+            return False
+
+        self._save_users()
+        return True
