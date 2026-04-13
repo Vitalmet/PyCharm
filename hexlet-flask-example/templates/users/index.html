@@ -30,11 +30,11 @@
             <td>{{ user.email }}</td>
             <td>
                 <!-- Кнопка редактирования -->
-                <a href="{{ url_for('users_edit', id=user.id) }}">Edit</a>
+                <a href="{{ url_for('users_edit', id=user.id) }}">Редактировать</a>
 
                 <!-- Форма удаления -->
                 <form action="{{ url_for('users_delete', id=user.id) }}" method="post" style="display: inline;">
-                    <input type="submit" value="Remove" onclick="return confirm('Вы уверены, что хотите удалить пользователя {{ user.name }}?');">
+                    <input type="submit" value="Удалить" onclick="return confirm('Вы уверены, что хотите удалить пользователя {{ user.name }}?');">
                 </form>
              </td>
         </tr>
