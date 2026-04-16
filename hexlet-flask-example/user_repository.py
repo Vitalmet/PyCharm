@@ -1,5 +1,5 @@
-import json
 import uuid
+from flask import session
 
 
 class UserRepository():
@@ -7,17 +7,15 @@ class UserRepository():
         self._load_users()
 
     def _load_users(self):
-        """Загружает пользователей из файла"""
-        try:
-            with open("./users.json", 'r', encoding='utf-8') as f:
-                self.users = json.load(f)
-        except FileNotFoundError:
-            self.users = []
+        """Загружает пользователей из сессии"""
+        if 'users' not in session:
+            session['users'] = []
+        self.users = session['users']
 
     def _save_users(self):
-        """Сохраняет пользователей в файл"""
-        with open("./users.json", "w", encoding='utf-8') as f:
-            json.dump(self.users, f, indent=2, ensure_ascii=False)
+        """Сохраняет пользователей в сессию"""
+        session['users'] = self.users
+        session.modified = True
 
     def get_content(self):
         """Возвращает всех пользователей"""
