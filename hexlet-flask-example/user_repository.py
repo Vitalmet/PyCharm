@@ -1,5 +1,4 @@
 import json
-import sys
 import uuid
 
 
@@ -10,15 +9,15 @@ class UserRepository():
     def _load_users(self):
         """Загружает пользователей из файла"""
         try:
-            with open("./users.json", 'r') as f:
+            with open("./users.json", 'r', encoding='utf-8') as f:
                 self.users = json.load(f)
         except FileNotFoundError:
             self.users = []
 
     def _save_users(self):
         """Сохраняет пользователей в файл"""
-        with open("./users.json", "w") as f:
-            json.dump(self.users, f, indent=2)  # Добавил indent для читаемости
+        with open("./users.json", "w", encoding='utf-8') as f:
+            json.dump(self.users, f, indent=2, ensure_ascii=False)
 
     def get_content(self):
         """Возвращает всех пользователей"""

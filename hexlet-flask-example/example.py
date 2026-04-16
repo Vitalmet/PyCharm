@@ -1,6 +1,4 @@
 import logging
-from urllib import request
-
 from flask import (
     Flask,
     redirect,
