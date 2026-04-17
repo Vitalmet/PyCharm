@@ -171,23 +171,6 @@ def validate(user):
     return errors
 
 
-@app.route("/courses/<int:id>")
-def courses_show(id):
-    course = {
-        "id": id,
-        "name": f"Курс #{id}",
-        "description": "Описание курса появится позже",
-        "duration": "Не указана"
-    }
-    return render_template('courses/show.html', course=course)
-
-
-@app.route("/courses")
-def courses_list():
-    empty_courses = []
-    return render_template('courses/index.html', courses=empty_courses)
-
-
 if __name__ == "__main__":
     logger.info("Запуск приложения")
     try:

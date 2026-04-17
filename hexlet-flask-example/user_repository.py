@@ -1,60 +1,96 @@
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import os
 import uuid
-from flask import session
 
 
 class UserRepository():
-    def __init__(self):
-        self._load_users()
+    def __init__(self, db_url=None):
+        if db_url is None:
+            self.db_url = os.getenv('DATABASE_URL')
 
-    def _load_users(self):
-        """Загружает пользователей из сессии"""
-        if 'users' not in session:
-            session['users'] = []
-        self.users = session['users']
+        # Всегда используем БД, если есть URL
+        self._use_session = self.db_url is None
 
-    def _save_users(self):
-        """Сохраняет пользователей в сессию"""
-        session['users'] = self.users
-        session.modified = True
+        if self._use_session:
+            # Для совместимости - НО НЕ ИСПОЛЬЗУЕМ session здесь!
+            # Вместо этого используем просто список
+            self._users = []
+            self._next_id = 1
+
+    def _get_connection(self):
+        """Создаёт соединение с БД"""
+        if not self.db_url:
+            raise Exception("DATABASE_URL not configured")
+        return psycopg2.connect(self.db_url)
 
     def get_content(self):
         """Возвращает всех пользователей"""
-        self._load_users()  # Всегда свежие данные
-        return self.users
+        if self._use_session:
+            # Возвращаем копию списка
+            return [user.copy() for user in self._users]
+
+        with self._get_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("SELECT id, name, email FROM users ORDER BY id")
+                return cur.fetchall()
 
     def find(self, id):
-        self._load_users()  # Всегда загружаем свежие данные
-        for user in self.users:
-            if str(id) == str(user.get('id', '')):
-                return user
-        return None
+        """Находит пользователя по id"""
+        if self._use_session:
+            for user in self._users:
+                if str(id) == str(user.get('id', '')):
+                    return user.copy()
+            return None
 
-    def save(self, new_user):
-        self._load_users()  # Загружаем свежие данные
+        with self._get_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute("SELECT id, name, email FROM users WHERE id = %s", (id,))
+                return cur.fetchone()
 
-        # Обновляем существующего пользователя
-        if new_user.get('id'):
-            for i, current in enumerate(self.users):
-                if str(new_user['id']) == str(current.get('id', '')):
-                    self.users[i] = new_user
-                    self._save_users()
-                    return new_user['id']
+    def save(self, user_data):
+        """Сохраняет пользователя"""
+        if self._use_session:
+            # Ищем существующего пользователя
+            if user_data.get('id'):
+                for i, current in enumerate(self._users):
+                    if str(user_data['id']) == str(current.get('id', '')):
+                        self._users[i] = user_data.copy()
+                        return user_data['id']
 
-        # Добавляем нового пользователя
-        new_user['id'] = str(uuid.uuid4())
-        self.users.append(new_user)
-        self._save_users()
-        return new_user['id']
+            # Создаем нового
+            new_id = str(uuid.uuid4())
+            user_data['id'] = new_id
+            self._users.append(user_data.copy())
+            return new_id
+
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                if user_data.get('id'):
+                    # Обновление
+                    cur.execute(
+                        "UPDATE users SET name = %s, email = %s WHERE id = %s",
+                        (user_data['name'], user_data['email'], user_data['id'])
+                    )
+                else:
+                    # Создание нового
+                    cur.execute(
+                        "INSERT INTO users (name, email) VALUES (%s, %s) RETURNING id",
+                        (user_data['name'], user_data['email'])
+                    )
+                    user_data['id'] = cur.fetchone()[0]
+                conn.commit()
+                return user_data['id']
 
     def destroy(self, id):
-        """Удаляет пользователя по id"""
-        self._load_users()
+        """Удаляет пользователя"""
+        if self._use_session:
+            original_count = len(self._users)
+            self._users = [user for user in self._users if str(user.get('id', '')) != str(id)]
+            return len(self._users) < original_count
 
-        original_count = len(self.users)
-        self.users = [user for user in self.users if str(user.get('id', '')) != str(id)]
-
-        if len(self.users) == original_count:
-            return False
-
-        self._save_users()
-        return True
+        with self._get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("DELETE FROM users WHERE id = %s", (id,))
+                conn.commit()
+                return cur.rowcount > 0
