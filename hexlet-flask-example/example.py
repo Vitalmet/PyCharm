@@ -1,4 +1,7 @@
+import os
+import psycopg2
 import logging
+from dotenv import load_dotenv
 from flask import (
     Flask,
     redirect,
@@ -10,6 +13,12 @@ from flask import (
 )
 from user_repository import UserRepository
 
+load_dotenv()
+
+# Получаем URL базы данных (для Render)
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL and DATABASE_URL.startswith('postgres://'):
+    DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
 
 logging.basicConfig(
     level=logging.ERROR,  # Изменено с DEBUG на ERROR
@@ -19,8 +28,10 @@ logger = logging.getLogger(__name__)
 
 # Это callable WSGI-приложение
 app = Flask(__name__)
-app.secret_key = "secret_key"
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'my-secret-key')
 
+# Глобальный репозиторий с подключением к БД
+repo = UserRepository(DATABASE_URL)
 
 @app.route("/")
 def hello_world():
@@ -29,9 +40,7 @@ def hello_world():
 
 @app.route("/users/")
 def get_users():
-    repo = UserRepository()
     users = repo.get_content()
-
     messages = get_flashed_messages(with_categories=True)
     term = request.args.get('term', '')
     filtered_users = [user for user in users if term.lower() in user['name'].lower()]
@@ -55,7 +64,6 @@ def users_post():
             errors=errors,
         ), 422
 
-    repo = UserRepository()
 
     # Создаем нового пользователя
     new_user = {
@@ -64,7 +72,7 @@ def users_post():
     }
 
     try:
-        user_id = repo.save(new_user)  # Repository сам сгенерирует id
+        user_id = repo.save(new_user)
         flash('Пользователь успешно добавлен', 'success')
     except Exception as e:
         logger.error(f"Ошибка при сохранении: {e}")
@@ -86,7 +94,6 @@ def users_new():
 
 @app.route("/users/<id>/edit")
 def users_edit(id):
-    repo = UserRepository()
     user = repo.find(id)
 
     if not user:
@@ -103,7 +110,6 @@ def users_edit(id):
 
 @app.route("/users/<id>/patch", methods=['POST'])
 def users_patch(id):
-    repo = UserRepository()
     user = repo.find(id)
 
     if not user:
@@ -137,8 +143,6 @@ def users_patch(id):
 
 @app.route("/users/<id>/delete", methods=['POST'])
 def users_delete(id):
-    repo = UserRepository()
-
     user = repo.find(id)
     if not user:
         flash('Пользователь не найден', 'error')
@@ -151,7 +155,6 @@ def users_delete(id):
 
 @app.route('/users/<id>')
 def show_user(id):
-    repo = UserRepository()
     user = repo.find(id)
 
     if not user:
@@ -172,8 +175,9 @@ def validate(user):
 
 
 if __name__ == "__main__":
-    logger.info("Запуск приложения")
+    port = int(os.environ.get('PORT', 5000))  # ← порт для Render
+    logger.info(f"Запуск приложения на порту {port}")
     try:
-        app.run(debug=True)
+        app.run(host='0.0.0.0', port=port)  # ← host='0.0.0.0' для Render
     except Exception as e:
         logger.critical(f"Критическая ошибка при запуске приложения: {e}")

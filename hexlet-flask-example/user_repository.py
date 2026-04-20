@@ -1,35 +1,24 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
-import uuid
 
 
 class UserRepository():
     def __init__(self, db_url=None):
         if db_url is None:
             self.db_url = os.getenv('DATABASE_URL')
+        else:
+            self.db_url = db_url
 
-        # Всегда используем БД, если есть URL
-        self._use_session = self.db_url is None
-
-        if self._use_session:
-            # Для совместимости - НО НЕ ИСПОЛЬЗУЕМ session здесь!
-            # Вместо этого используем просто список
-            self._users = []
-            self._next_id = 1
+        if not self.db_url:
+            raise Exception("DATABASE_URL не настроена! Проверьте .env файл")
 
     def _get_connection(self):
         """Создаёт соединение с БД"""
-        if not self.db_url:
-            raise Exception("DATABASE_URL not configured")
         return psycopg2.connect(self.db_url)
 
     def get_content(self):
         """Возвращает всех пользователей"""
-        if self._use_session:
-            # Возвращаем копию списка
-            return [user.copy() for user in self._users]
-
         with self._get_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("SELECT id, name, email FROM users ORDER BY id")
@@ -37,12 +26,6 @@ class UserRepository():
 
     def find(self, id):
         """Находит пользователя по id"""
-        if self._use_session:
-            for user in self._users:
-                if str(id) == str(user.get('id', '')):
-                    return user.copy()
-            return None
-
         with self._get_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("SELECT id, name, email FROM users WHERE id = %s", (id,))
@@ -50,20 +33,6 @@ class UserRepository():
 
     def save(self, user_data):
         """Сохраняет пользователя"""
-        if self._use_session:
-            # Ищем существующего пользователя
-            if user_data.get('id'):
-                for i, current in enumerate(self._users):
-                    if str(user_data['id']) == str(current.get('id', '')):
-                        self._users[i] = user_data.copy()
-                        return user_data['id']
-
-            # Создаем нового
-            new_id = str(uuid.uuid4())
-            user_data['id'] = new_id
-            self._users.append(user_data.copy())
-            return new_id
-
         with self._get_connection() as conn:
             with conn.cursor() as cur:
                 if user_data.get('id'):
@@ -84,11 +53,6 @@ class UserRepository():
 
     def destroy(self, id):
         """Удаляет пользователя"""
-        if self._use_session:
-            original_count = len(self._users)
-            self._users = [user for user in self._users if str(user.get('id', '')) != str(id)]
-            return len(self._users) < original_count
-
         with self._get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute("DELETE FROM users WHERE id = %s", (id,))

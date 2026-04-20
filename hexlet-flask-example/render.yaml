@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: hexlet-flask-example
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn example:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: flask-example-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true  # автоматически генерирует секретный ключ
+      - key: FLASK_ENV
+        value: production
+
+databases:
+  - name: flask-example-db
+    databaseName: flask_example
+    user: flask_user
+    plan: free  # или starter для большего объема
