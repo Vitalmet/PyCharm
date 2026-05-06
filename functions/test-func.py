@@ -162,10 +162,3 @@ if __name__ == "__main__":
         app.run(debug=True)
     except Exception as e:
         logger.critical(f"Критическая ошибка при запуске приложения: {e}")
-
-
-print('Hello World')
-print('Hello World')
-print('Hello World')
-print("Hello World")
-print("Hello World")
