@@ -1,13 +1,12 @@
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
+class IndexView(RedirectView):
+    permanent = False
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['who'] = 'From Django'
-        return context
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('article', kwargs={'tags': 'python', 'article_id': 42})
 
 def about(request):
     return render(request, "about.html")
