@@ -4,7 +4,7 @@ from django.shortcuts import render
 from hexlet_django_blog.article.models import Article
 
 class IndexView(View):
-    def get(self, request, *arrgs, **kwargs):
+    def get(self, request, *args, **kwargs):
         articles = Article.objects.all()[:15]
         return render(
             request,
