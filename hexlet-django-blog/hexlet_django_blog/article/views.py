@@ -43,3 +43,27 @@ class ArticleFormCreateView(View):
             return redirect('articles')
         messages.error(request, 'Исправьте ошибки в форме')
         return render(request, "articles/create.html", {"form": form})
+
+class ArticleFormEditView(View):
+    def get(self, request, *args, **kwargs):
+        article_id = kwargs.get("id")  # Получаем id статьи из параметров URL
+        article = Article.objects.get(id=article_id) # Ищем статью в базе по этому id.
+        form = ArticleForm(instance=article) # Создаём форму, но уже с данными найденной статьи (instance=article), чтобы поля были предзаполнены.
+        return render(                                      # Возвращаем страницу шаблона articles/update.html.
+            request, "articles/update.html",
+            {"form": form, "article_id": article_id}
+        )
+
+    def post(self, request, *args, **kwargs):
+        article_id = kwargs.get("id")
+        article = Article.objects.get(id=article_id)
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Статья "{article.name}" успешно обновлена!')
+            return redirect('articles')
+        messages.error(request, 'Исправьте ошибки в форме')
+        return render(
+            request, "articles/update.html",
+            {"form": form, "article_id": article_id}
+        )
