@@ -45,6 +45,7 @@ class ArticleFormCreateView(View):
         return render(request, "articles/create.html", {"form": form})
 
 class ArticleFormEditView(View):
+
     def get(self, request, *args, **kwargs):
         article_id = kwargs.get("id")  # Получаем id статьи из параметров URL
         article = Article.objects.get(id=article_id) # Ищем статью в базе по этому id.
@@ -69,6 +70,7 @@ class ArticleFormEditView(View):
         )
 
 class ArticleFormDeleteView(View):
+
     def post(self, request, *args, **kwargs):
         article_id = kwargs.get("id")
         article = Article.objects.get(id=article_id)
