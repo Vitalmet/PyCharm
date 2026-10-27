@@ -5,3 +5,20 @@ coverage.xml
 *.cast
 *.json
 *.yml
+
+# Вложенные git-репозитории: у каждого свой remote и своя история,
+# в родительский репозиторий они не входят.
+hexlet_pytest/
+python-django-orm-blog/
+python-immutable-fs-trees/
+python-package/
+python-project-49/
+python-project-50/
+python-project-52/
+python-project-83/
+
+# Мусор Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
