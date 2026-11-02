@@ -31,3 +31,5 @@ text_parts = []
 for value in maximums:
     text_parts.append(str(value))  # join умеет склеивать только строки
 print(';'.join(text_parts))
+
+
